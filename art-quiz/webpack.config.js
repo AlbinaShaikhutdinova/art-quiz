@@ -11,12 +11,9 @@ module.exports = {
     rules: [
       {
         test: /\.html$/,
-        use: [
-            {
-                loader: 'html-loader',
-                options: {minimize: false}
-            }
-        ],
+        loader: "html-loader",
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
@@ -31,11 +28,11 @@ module.exports = {
               // Prefer `dart-sass`
               //implementation: require("sass"),
               resources: ['src/style/style.scss']
-            },
-          },
-        ],  
-      }],
-      
+            },   
+         },
+        ],
+      } 
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
