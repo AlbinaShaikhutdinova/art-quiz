@@ -1,8 +1,9 @@
-import home from './home/classHome';
+import Quiz from './quiz/Quiz';
 
 import './index.scss';
 
 
-new home();
+const game =new Quiz();
+game.init();
 
 

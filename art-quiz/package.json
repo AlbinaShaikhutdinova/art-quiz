@@ -10,7 +10,10 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "file-loader": "^6.2.0",
+    "url-loader": "^4.1.1"
+  },
   "devDependencies": {
     "css-loader": "^6.5.1",
     "html-loader": "^3.0.1",

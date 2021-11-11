@@ -7,11 +7,20 @@
 body{
     width: 100vw;
     height: 100vh;
-    background-color: $background-color;
+    //background-color: $background-color;
 }
-
+main{
+    width: 100vw;
+    height: 100vh;
+}
 button{
     border: 1px solid $elements-color;
     border-radius: 20px;
     padding: 10px;
+    color: $elements-color;
 }
+
+.hidden{
+    display: none;
+}
+
