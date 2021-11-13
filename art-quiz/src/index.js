@@ -1,9 +1,8 @@
-import Quiz from './quiz/Quiz';
+import app from './app/app';
 
 import './index.scss';
 
 
-const game =new Quiz();
-game.init();
+app();
 
 

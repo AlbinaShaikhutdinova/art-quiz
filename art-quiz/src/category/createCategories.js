@@ -5,6 +5,7 @@ import Category from './classCategory';
 import categories from './index.html';
 import quiz from '../quiz/Quiz';
 import './style.scss';
+import pic from '../utils/importPics';
 
 
 //show page with categories of certain type(artist or art)
@@ -16,11 +17,10 @@ function createCategories(type){
     main.append(categoriesElement);
     const amountQ = 10;
     const amountCategories = type ==='artist'? 12 : 24;
-    const images = importImages();
     let i = type ==='artist'? 0 : 12;
     for(i;i<amountCategories;i++)
     {
-        buildHtml(i,images[i*10]);
+        buildHtml(i,pic[i*10]);
     }
     return categoriesElement;
 }

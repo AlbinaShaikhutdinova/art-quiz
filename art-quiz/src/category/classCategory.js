@@ -7,32 +7,43 @@ import round from './categoryIndex.html';
 //save data to local storage
 //get a preview picture for choice page
 class Category{
-    constructor(index,  score = 0){
+    constructor(index){
         this.index=index;
         this.title = `Category ${index}`;
-        this.score = score;
+        this.score = 0;
+        this.answers = [];
+        this.qIndex =0;
     }
+
+    getCurrentScore(){
+        return this.score;
+    }
+    saveAnswer(status){
+        this.answers[this.qIndex] = status;
+        this.qIndex++;
+        if(status) this.score++;
+    }
+    saveResult(){
+        localStorage.setItem(this.index,JSON.stringify(this.answers));
+        localStorage.setItem(this.index+'score',JSON.stringify(this.score));
+    }
+    showCurrentResult(){
+        return this.answers;
+    }
+    getPreviousScore(){
+        return localStorage.getItem(this.index+'score');
+    }
+
+    getPreviousAnswers(){
+        return localStorage.getItem(this.index);
+    }
+
     display(){
         const newRound = htmlToElement(round);
         newRound.querySelector('.page-title').textContent = this.title;
         this.roundButton =  newRound.querySelector('.start-round__button');
-        if(this.score)
-        {
-            for(let i =0;i<10;i++){
-                const item = document.createElement('div');
-                item.classList.add('round-results__item');
-                if(score[i])
-                {
-                    item.classList.add('checked')
-                }
-                newRound.querySelector('.round-results').append(item);
-            }
-            this.roundButton.textContent = 'play again';
-        }
-        else{
-            this.roundButton.textContent = 'start round';
-        }
         document.querySelector('main').append(newRound);
+        return newRound;
     }
     
 }
