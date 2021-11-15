@@ -1,12 +1,12 @@
 import images from '../assets/images';
 import htmlToElement from '../utils/htmlToElement';
-import round from './categoryIndex.html';
+import round from './roundIndex.html';
 
 //create a category
 //get data from local storage about played rounds
 //save data to local storage
 //get a preview picture for choice page
-class Category{
+class Round{
     constructor(index){
         this.index=index;
         this.title = `Category ${index}`;
@@ -48,4 +48,4 @@ class Category{
     
 }
 
-export default Category;
+export default Round;

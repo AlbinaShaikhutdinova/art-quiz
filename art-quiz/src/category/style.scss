@@ -1,6 +1,8 @@
 .categories{
-    height: 90vh;
+    height: 80vh;
     width: 100%;
+    position: relative;
+    z-index: 0;
 }
 .categories__container{
     width: 100%;
@@ -23,23 +25,3 @@
 
 //////////////////////////////////////
 
-.round-start{
-    width: 100%;
-    height: 90vh;
-}
-
-.round-start__container{
-    padding: 10px;
-    height: 100%;
-    width: 100%;
-    
-}
-
-.round-attributes{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}

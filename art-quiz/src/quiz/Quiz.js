@@ -1,7 +1,7 @@
 import createCategory from '../category/createCategories';
 import Home from '../home/classHome';
 import images from '../assets/images';
-import Category from '../category/classCategory';
+import Round from '../round/classRound';
 import htmlToElement from '../utils/htmlToElement';
 import indexQuestion from './indexQuestion.html';
 import Question from '../question/classQuestion';
@@ -9,18 +9,19 @@ import importImages from '../utils/importImages';
 import pic from '../utils/importPics';
 
 export default class Quiz{
-    init(index, questionsAmount=10){
+    constructor(index,questionsAmount=10){
         this.currentQuestionIndex=index*questionsAmount;
         this.index = index;
         this.qAmount = questionsAmount;
         this.qIndexInRound =1;
         this.data = images;
         this.score = 0;
-        this.category = new Category(index);
+        this.category = new Round(index);
         this.startPage = this.category.display();
         this.images = importImages();
+    }
+    init(){   
         this.displayNewRound();
-     
     }
     displayNewRound(){
         const roundButton =  this.startPage.querySelector('.start-round__button');

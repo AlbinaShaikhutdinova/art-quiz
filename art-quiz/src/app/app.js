@@ -1,26 +1,69 @@
 import createCategory from '../category/createCategories';
 import Home from '../home/classHome';
-import images from '../assets/images';
-import Category from '../category/classCategory';
+import chooseCategoryType from '../category/chooseCategoryType';
 import Quiz from '../quiz/Quiz';
+import getFooter from '../footer/footer';
+import htmlToElement from '../utils/htmlToElement';
 
-export default function app(){
+function app(){
     const home = new Home();
-    for(let button of home.buttons) {
-        button.addEventListener('click', showCategoriesPage.bind(this,button.id, home));
-    };      
+    home.createHomePage();
+    home.showHome();    // createCategories();
+    // const footerElement = getFooter();
+    // for(let button of home.buttons) {
+    //     button.addEventListener('click', displayCategories.bind(this,button.id));
+    // };     
+
+}
+ 
+function getFooterPage(){
+    return document.querySelector('footer');
 }
 
-function showCategoriesPage(type, home){ 
-    const categoriesPage = createCategory(type);
+function getHomePage(){
+    return document.querySelector('.home');
+}
+
+function displayHome(prevPage){
+    toggleVisibility(getHomePage());
+    toggleVisibility(prevPage);
+    getFooterPage().querySelector('.nav-footer').style.bottom ='-20vh';
+}
+
+function createCategories(){
+    const categoriesPage = createCategory(12);
     const categories = categoriesPage.getElementsByClassName('category-item');
     for(let element of categories) {
         element.addEventListener('click', getNewQuiz.bind(this, element.id,categoriesPage))
     };
-    toggleVisibility(home.homeElement);
-    toggleVisibility(categoriesPage);
+
 }
- function toggleVisibility(element) {
+
+function displayCategories(id){
+    console.log(id);
+    toggleVisibility(getHomePage());
+    toggleVisibility(getCategoriesPage());
+    getFooterPage().querySelector('.nav-footer').style.bottom ='-10vh';
+    chooseCategoryType(id);
+    
+}
+
+function getCategoriesPage(){ 
+    return document.querySelector('.categories');
+}
+
+function getScorePage(){
+
+}
+
+function changePage(id){
+    switch(id){
+       case "nav-home": displayHome(getCategoriesPage());
+       case "nav-category": ;
+       case "nav-score": getScorePage();
+    }
+}
+function toggleVisibility(element) {
     element.classList.toggle('hidden');
 }
 
@@ -29,3 +72,5 @@ function getNewQuiz(id, prevPage){
     const game =new Quiz();
     game.init(id);
 }
+
+export  {app, changePage};
