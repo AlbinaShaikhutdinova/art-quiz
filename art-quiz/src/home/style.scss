@@ -1,5 +1,8 @@
 .home{
-    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: 100%;
     //background-image: url(../assets/img/6.jpg);
     background-size: cover;
@@ -17,9 +20,18 @@
     align-items: center;
 }
 
+.app-logo{
+    width: 10rem;
+    height: 5rem;
+    background: url(../assets/svg/app-logo.svg) no-repeat ;
+    background-size: contain;
+}
+
 .home-page__button{
-    padding: 14px 20px;
+    //padding: 14px 20px;
     width: 80%;
     background-color: transparent;
     margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 28px;
 }

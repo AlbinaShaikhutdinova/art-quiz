@@ -3,7 +3,7 @@ import Home from '../home/classHome';
 import images from '../assets/images';
 import Round from '../round/classRound';
 import htmlToElement from '../utils/htmlToElement';
-import indexQuestion from './indexQuestion.html';
+//import indexQuestion from './indexQuestion.html';
 import Question from '../question/classQuestion';
 import importImages from '../utils/importImages';
 import pic from '../utils/importPics';
@@ -16,18 +16,18 @@ export default class Quiz{
         this.qIndexInRound =1;
         this.data = images;
         this.score = 0;
-        this.category = new Round(index);
-        this.startPage = this.category.display();
+        this.round = new Round(index);
+        //this.startPage = this.round.display();
         this.images = importImages();
     }
-    init(){   
-        this.displayNewRound();
+    init(){        
+        //this.displayNewRound();
     }
     displayNewRound(){
         const roundButton =  this.startPage.querySelector('.start-round__button');
-        if(this.category.getPreviousScore())
+        if(this.round.getPreviousScore())
         {
-            const answers = this.category.getPreviousAnswers();
+            const answers = this.round.getPreviousAnswers();
             for(let i =0;i<10;i++){
                 const item = document.createElement('div');
                 item.classList.add('round-results__item');
@@ -47,11 +47,11 @@ export default class Quiz{
 
     /// make a function for randomizing questions in a round
     startRound(){
-        this.toggleVisibility(this.startPage);
+        //this.toggleVisibility(this.startPage);
         this.buildQuestionHTML();  
         this.getNextQuestion();
     }
-    fillQuestionTemplate( question){
+    fillQuestionTemplate(question){
         const title = document.querySelector('.question-title');
         const imageNum = this.data[question.answer].imageNum;
         const items = document.getElementsByClassName('answer-item');
@@ -104,7 +104,7 @@ export default class Quiz{
         {
 
         }
-        this.category.saveAnswer(this.question.isCorrect(el.id));
+        this.round.saveAnswer(this.question.isCorrect(el.id));
         this.currentQuestionIndex++;
         if(this.qIndexInRound<this.qAmount)
         {
@@ -122,8 +122,8 @@ export default class Quiz{
     }
 
     finishRound(){
-        this.category.saveResult();
-        const result = this.category.getCurrentScore();
+        this.round.saveResult();
+        const result = this.round.getCurrentScore();
         this.toggleVisibility(document.querySelector('.round-result'));
         this.toggleVisibility(document.querySelector('.question-page'));
         document.querySelector('.round-result').textContent = `Score is ${result}/${this.qAmount}`;

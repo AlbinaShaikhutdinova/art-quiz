@@ -1,0 +1,22 @@
+header{
+    height: 10vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.header-container{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .settings-icon{
+        width: 34px;
+        height: 34px;
+        background-image: url(../assets/svg/carbon_settings.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+
+    }
+}
+

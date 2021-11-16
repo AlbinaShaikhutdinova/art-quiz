@@ -3,13 +3,37 @@ import {changePage} from '../app/app';
 import htmlToElement from '../utils/htmlToElement';
 import './style.scss';
 
-export default function getFooter(){
-    const footerElement = htmlToElement(footer);
-    document.querySelector('footer').append(footerElement);
-    const footerLinks = footerElement.getElementsByClassName('nav-link');
-    for(let item of footerLinks)
-    {
-        item.addEventListener('click', changePage.bind(this, item.id));
+export default class Footer{
+    constructor(categories, home){
+        this.categories = categories;
+        this.home = home;
+        const footerElement = htmlToElement(footer);
+        document.querySelector('footer').append(footerElement);
+        const footerLinks = footerElement.getElementsByClassName('nav-link');
+        for(let item of footerLinks)
+        {
+            item.addEventListener('click', this.changePage.bind(this, item));
+        }
+        //return footerElement;
     }
-    return footerElement;
+    changePage(item){
+        console.log(item)
+        switch(item.id){
+           case "nav-home": this.goHome();
+           break;
+           case "nav-category": this.goCat();
+           break;
+           case "nav-score": ;
+           break;
+        }
+    }
+    goHome(){
+        this.categories.hideCategories();
+        this.home.showHome();
+    }
+    goCat(){
+        this.categories.showCategories();
+        this.home.hideHome();
+    }
+   
 }

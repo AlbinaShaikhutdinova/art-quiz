@@ -5,7 +5,7 @@ import Categories from '../category/Categories';
 
 import './style.scss';
 class Home{
-    constructor(){
+    constructor(categories){
         // this.homeElement  = htmlToElement(homePage);
         // const main = document.querySelector('main');
         // main.append(this.homeElement);
@@ -16,11 +16,6 @@ class Home{
         // }
         // getBackground();
         // this.buttons = document.getElementsByClassName('home-page__button');
-        this.catPage=new Categories();
-        return this;
-    }
-
-    createHomePage(){
         this.homeElement = htmlToElement(homePage);
         const main = document.querySelector('main');
         main.append(this.homeElement);
@@ -29,18 +24,27 @@ class Home{
         for(let button of this.buttons) {
             button.addEventListener('click', this.displayCategories.bind(this,button.id));
         };     
+        this.catPage=categories;
+        //this.catPage.createPage();
+        return this;
     }
-    displayCategories(id){
-        this.catPage.createPage();
+
+    createHomePage(){
+        
+    }
+    displayCategories(id){    
         this.hideHome();
         this.catPage.createCategories(id);
         this.catPage.showCategories();
+        
     }
     showHome(){
         this.homeElement.classList.remove('hidden');
     }
     hideHome(){
         this.homeElement.classList.add('hidden');
+        // const home = document.querySelector('body');
+        // home.style.backgroundColor = "black";
     }
 
 }

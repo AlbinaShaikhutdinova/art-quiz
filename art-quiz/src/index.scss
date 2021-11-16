@@ -8,19 +8,25 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: $background-color;
+    font-family: Gilroy;
 }
 main{
     width: 100vw;
-    height: 90vh;
+    height: 80vh;
 }
 button{
     border: 1px solid $elements-color;
-    border-radius: 20px;
+    border-radius: 30px;
     padding: 10px;
     color: $elements-color;
+    
+    background-color: transparent;
 }
 
 .hidden{
     display: none;
 }
 
+.not-visited{
+    filter: grayscale(100%);
+}

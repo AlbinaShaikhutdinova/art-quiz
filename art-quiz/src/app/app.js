@@ -4,11 +4,18 @@ import chooseCategoryType from '../category/chooseCategoryType';
 import Quiz from '../quiz/Quiz';
 import getFooter from '../footer/footer';
 import htmlToElement from '../utils/htmlToElement';
+import Footer from '../footer/footer';
+import CategoriesPage from '../category/Categories';
+import Header from '../header/header';
 
 function app(){
-    const home = new Home();
-    home.createHomePage();
-    home.showHome();    // createCategories();
+    const header = new Header();
+    const categories = new CategoriesPage();
+    const home = new Home(categories);
+    const footer = new Footer(categories, home);
+    
+    //home.createHomePage();
+    home.showHome();   // createCategories();
     // const footerElement = getFooter();
     // for(let button of home.buttons) {
     //     button.addEventListener('click', displayCategories.bind(this,button.id));
