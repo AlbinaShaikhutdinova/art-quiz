@@ -19,18 +19,18 @@ export default class CategoriesPage{
         for(let element of items) {
             element.addEventListener('click', this.getNewQuiz.bind(this, element))
         };
-        this.round = new Round();
+        this.round = new Round(this.round);
         //return this.categoriesElement;
        
     }
-    createPage(){
-        
-    }
+    // getHomeInstance(home){
+    //     this.home=home;
+    // }
 
     getNewQuiz(el){
         this.hideCategories();
         this.round.init(el.id);
-        this.round.startRound();
+        this.round.startRound(this);
     }
     buildHtml(){
         const list = document.querySelector('.category-items-container');
@@ -68,11 +68,16 @@ export default class CategoriesPage{
         item.querySelector('.title-index').textContent=`Category ${a}`;
         const bg = item.querySelector('.category-item-bg');
         if(localStorage.getItem(index+'score'))
-            item.querySelector('.title-score').textContent = `${localStorage.getItem(index+'score')}/${10}`;
-        else bg.classList.add('not-visited');
-        item.id = index;
+            {
+                item.querySelector('.title-score').textContent = `${localStorage.getItem(index+'score')}/${10}`;
+                bg.classList.remove('not-visited');
+            }
+        else bg.classList.add('not-visited')
+        item.id ="category"+ index;
         bg.style.backgroundImage = "url('"+image+"')";   
     }
+
+
 
     showCategories(){
         this.categoriesElement.classList.remove('hidden');

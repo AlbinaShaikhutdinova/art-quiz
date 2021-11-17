@@ -2,7 +2,7 @@ import indexQuestion from './indexQuestion.html';
 import pic from '../utils/importPics';
 import images from '../assets/images';
 import htmlToElement from '../utils/htmlToElement';
-import Round from '../round/classRound';
+
 
 import './style.scss';
 
@@ -16,9 +16,22 @@ export default class Question{
         this.questionPage.querySelector('.question-picture').append(img);    
         document.querySelector('main').append(this.questionPage);
         const items = document.getElementsByClassName('answer-item');
+        for(let el of items){
+            el.addEventListener('click',this.showUserAnswerInfo.bind(this,el))
+        }
+        
+        document.querySelector('.modal-result__button.modal-home').addEventListener('click', this.getHomePage.bind(this));
+        document.querySelector('.modal-result__button.next').addEventListener('click', this.getNextRound.bind(this));
+        this.questionPage.querySelector('.modal-button').addEventListener('click', this.cleanPage.bind(this) )
+        
+        this.data = images;   
+    }
+
+    buildTypeDependentFeatures(index){
+        const items = document.getElementsByClassName('answer-item');
         for(let el of items)
         {
-            if(this.round.index<12)
+            if(index<12)
             {
                 const button = document.createElement('button');
                 button.classList.add('answer-button');
@@ -29,11 +42,12 @@ export default class Question{
                 img.classList.add('image-answer');
                 el.append(img);
             }
-            el.addEventListener('click',this.round.processUserAnswer.bind(this.round,el))
+            
         }
-        this.data = images;   
     }
+
     init(qIndex){
+        this.buildTypeDependentFeatures(this.round.index);
         this.choices = [qIndex];
         this.populateChoices();
         this.answer = qIndex;
@@ -64,7 +78,7 @@ export default class Question{
         }
       
         return array;
-      }
+    }
 
     populateChoices(){
         while(this.choices.length<4){
@@ -85,9 +99,8 @@ export default class Question{
             document.querySelector('.question-image').src = pic[imageNum];      
             for(let i=0;i<4;i++)
             {
-                items[i].id = this.choices[i];
+                items[i].id =this.choices[i];
                 items[i].querySelector('.answer-button').textContent = this.data[this.choices[i]].author; 
-                //items[i].append(button); 
             }
         }
         else{
@@ -95,11 +108,6 @@ export default class Question{
             for(let i=0;i<4;i++)
             {   const img = items[i].querySelector('.image-answer');
                 img.src = pic[this.choices[i]];
-                // items[i].querySelector('.image-answer').style.maxWidth='160px';
-                // items[i].style.height='160px';
-                // items[i].style.backgroundImage = "url('"+pic[this.choices[i]]+"')";
-                // items[i].style.backgroundSize = 'contain';
-                // items[i].style.backgroundRepeat = 'no-repeat';
                 items[i].id= this.choices[i];
             }
             
@@ -110,6 +118,93 @@ export default class Question{
     }
     hideQuestionPage(){
         this.questionPage.classList.add('hidden');
+    }
+    showUserAnswerInfo(el){
+        this.round.saveAnswer(this.isCorrect(el.id));
+        const answerElement = document.getElementById(this.answer)
+        console.log(this,this.answer,answerElement)
+        if(this.round.index<12)
+        {
+            answerElement.querySelector('.answer-button').classList.add('right-answer-btn');
+            setTimeout(this.showModalArtist.bind(this,el),400);
+        }
+        else{
+            
+            answerElement.querySelector('.image-answer').classList.add('wrap-right-image');
+            setTimeout(this.showModalPicture.bind(this,el),400);
+        }
+       
+    }
+    showModalArtist(el){
+        document.querySelector('.modal-content.answer').style.marginTop='40vh';
+        document.querySelector('.modal-answer').classList.remove('hidden');     
+        this.questionPage.querySelector('.modal-img').style.display ='none';
+        document.querySelector('.modal-description-text').textContent = this.data[el.id].author;
+        this.putAnswerSign(el,document.querySelector('.modal-description-sign'));
+    }
+    showModalPicture(el){
+        document.querySelector('.modal-content.answer').style.marginTop='20vh';
+        document.querySelector('.modal-answer').classList.remove('hidden');     
+        this.questionPage.querySelector('.modal-img-image').src =pic[el.id];
+        this.putAnswerSign(el,document.querySelector('.modal-img-sign'))
+        document.querySelector('.modal-description-text').textContent = this.data[el.id].author+", " + this.data[el.id].year;
+    }
+    cleanPage(){
+        document.querySelector('.modal-answer').classList.add('hidden'); 
+        if(this.round.index<12)
+            {
+                this.removeAnswerSign(document.querySelector('.modal-description-sign'));
+                document.getElementById(this.answer).querySelector('.answer-button').classList.remove('right-answer-btn');
+            }
+        else {
+            this.removeAnswerSign(document.querySelector('.modal-img-sign'));
+            document.getElementById(this.answer).querySelector('.image-answer').classList.remove('wrap-right-image');
+        }
+        this.removeTypeDependentFeatures();
+        this.round.processUserAnswer();
+    }
+    removeTypeDependentFeatures(){
+        const items = document.getElementsByClassName('answer-item');
+        for(let el of items)
+        {
+            el.removeEventListener('click',this.showUserAnswerInfo.bind());
+            el.innerHTML="";     
+        }
+
+    }
+
+    putAnswerSign(el,domElement){
+        if(this.isCorrect(el.id))
+        {
+            domElement.classList.add('right-answer-sign');
+        }
+        else{
+            domElement.classList.add('wrong-answer-sign')
+        }
+    }
+    removeAnswerSign(element){
+        element.classList.remove('wrong-answer-sign');    
+        element.classList.remove('right-answer-sign');   
+    }
+
+    cleanClosingModal(){
+        document.querySelector('.modal-result__button.next').classList.remove('hidden');
+        document.querySelector('.modal-result__img').classList.remove('great-result');
+        document.querySelector('.modal-result__img').classList.remove('grand-result');
+        document.querySelector('.modal-result').classList.add('hidden');
+    }
+
+    getNextRound(){
+        this.cleanClosingModal();
+        
+        this.hideQuestionPage();
+        this.round.getCategories();
+    }
+    
+    getHomePage(){
+        this.cleanClosingModal();
+        this.hideQuestionPage();
+        document.querySelector('.home').classList.remove('hidden')
     }
  
  

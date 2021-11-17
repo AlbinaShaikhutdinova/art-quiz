@@ -29,14 +29,12 @@ class Home{
         return this;
     }
 
-    createHomePage(){
-        
-    }
+  
     displayCategories(id){    
         this.hideHome();
         this.catPage.createCategories(id);
         this.catPage.showCategories();
-        
+        // this.catPage.getHomeInstance(this);
     }
     showHome(){
         this.homeElement.classList.remove('hidden');

@@ -9,21 +9,23 @@ import result from './roundResult.html';
 //save data to local storage
 //get a preview picture for choice page
 class Round{
-    constructor(){   
+    constructor(){     
+        this.resultPage = htmlToElement(result);
+        this.question = new Question(this); 
+    }
+    init(index,questionsAmount=10, sameCategory=false){
         this.score = 0;
         this.answers = [];
         this.qIndex =0;
-        this.resultPage = htmlToElement(result);
-        
-    }
-    init(index,questionsAmount=10){
+        this.categoriesAmount=12;
         console.log(index);
-        this.index=index;
+        this.index= index.toString().match(/\d+/g);
         this.qAmount = questionsAmount;
-        this.currentQuestionIndex=index*this.qAmount;
+        this.currentQuestionIndex=this.index*this.qAmount;
         this.qIndexInRound =1;
-        this.title = `Category ${index}`;
-        this.question = new Question(this);  
+        this.title = `Category ${this.index}`;  
+        // if(sameCategory)
+        // this.question.buildTypeDependentFeatures(index);
     }
 
 
@@ -58,23 +60,18 @@ class Round{
         return newRound;
     }
 
-    processUserAnswer(el){
-        if(true)
-        {
-
-        }
-        this.saveAnswer(this.question.isCorrect(el.id));
+    processUserAnswer(){
         this.currentQuestionIndex++;
         if(this.qIndex<this.qAmount)
         {
-            // this.qIndexInRound++;
             this.getNextQuestion();   
         }    
         else{
             this.finishRound();
         }
     }
-    startRound(){
+    startRound(categories){
+        this.categories=categories;
         this.getNextQuestion();
         this.question.showQuestionPage();
     }
@@ -85,9 +82,39 @@ class Round{
     finishRound(){
         this.saveResult();
         const result = this.getCurrentScore();
-        this.question.hideQuestionPage();
-        this.resultPage.classList.remove('hidden');
-        document.querySelector('.round-result').textContent = `Score is ${result}/${this.qAmount}`;
+        this.showFinishModal(result);
+        this.updateCategoriesStyle(document.getElementById('category'+this.index),this.index);
+    }
+    showFinishModal(result){
+        this.evaluateResult(result);
+        if((this.index+1)%this.categoriesAmount===0)
+        {
+            document.querySelector('.modal-category-end').textContent='You answered all questions in this category!';
+            document.querySelector('.modal-result__button.next').classList.add('hidden');
+        }
+        document.querySelector('.modal-result__score').textContent=`${result}/${this.qAmount}`;
+        document.querySelector('.modal-result').classList.remove('hidden');
+    }
+
+    evaluateResult(result){
+        if(result===this.qAmount)
+        {
+            document.querySelector('.modal-result__img').classList.add('great-result');
+            document.querySelector('.modal-result__text').textContent='Grand Result!';
+        }
+        else{
+            document.querySelector('.modal-result__img').classList.add('good-result');
+            document.querySelector('.modal-result__text').textContent='Congratulations!';
+        }
+    }
+    updateCategoriesStyle(item, index){
+        item.querySelector('.title-score').textContent = `${localStorage.getItem(index+'score')}/${10}`;
+        item.querySelector('.category-item-bg').classList.remove('not-visited');
+    }
+    getCategories(){    
+        this.categories.showCategories();
+        // this.init(++this.index);
+        // this.startRound();
     }
 
     

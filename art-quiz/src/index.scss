@@ -19,8 +19,18 @@ button{
     border-radius: 30px;
     padding: 10px;
     color: $elements-color;
-    
     background-color: transparent;
+}
+
+button:hover{
+    background-color: $elements-color;
+    color: black;
+    cursor: pointer;
+}
+
+button:active{
+    background-color: $main-color;
+    color: black;
 }
 
 .hidden{
