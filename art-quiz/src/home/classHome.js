@@ -31,15 +31,17 @@ class Home{
 
   
     displayCategories(id){    
-        this.hideHome();
+        this.hide();
         this.catPage.createCategories(id);
-        this.catPage.showCategories();
+        this.catPage.show();
         // this.catPage.getHomeInstance(this);
     }
-    showHome(){
+    show(){
+        this.active=true;
         this.homeElement.classList.remove('hidden');
     }
-    hideHome(){
+    hide(){
+        this.active=false;
         this.homeElement.classList.add('hidden');
         // const home = document.querySelector('body');
         // home.style.backgroundColor = "black";

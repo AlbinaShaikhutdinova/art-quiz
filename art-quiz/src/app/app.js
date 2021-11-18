@@ -7,61 +7,114 @@ import htmlToElement from '../utils/htmlToElement';
 import Footer from '../footer/footer';
 import CategoriesPage from '../category/Categories';
 import Header from '../header/header';
+import Settings from '../settings/settings';
 
+
+let instances={};
+
+const categories = new CategoriesPage();
+const home = new Home(categories);
+const footer = new Footer(categories, home);
+const settings = new Settings(home,categories);
+settings.init();
+const header = new Header(settings);
 function app(){
-    const header = new Header();
-    const categories = new CategoriesPage();
-    const home = new Home(categories);
-    const footer = new Footer(categories, home);
-    
-    //home.createHomePage();
-    home.showHome();   // createCategories();
-    // const footerElement = getFooter();
-    // for(let button of home.buttons) {
-    //     button.addEventListener('click', displayCategories.bind(this,button.id));
-    // };     
 
+    
+    instances = {categories: categories, 
+        home: home,
+        footer: footer,
+        settings: settings,
+        header: header};
+    // getInstancesArray(instances);
+    // //home.createHomePage();
+    home.show();   // createCategories();
+    // getHomeElement(home);
+    // getCategoriesElement(categories);
+    // getFooterElement(footer);
+    //getHeaderElement(header);
+    // getSettingsElement(settings);  
+}
+
+// function getInstancesArray(array){
+//     return array;
+// }
+
+// function getHomeElement(home){
+//     return home;
+// }
+// function getCategoriesElement(categories){
+//     return categories;
+// }
+// function getFooterElement(footer){
+//     return footer;
+// }
+function getSettingsInstance(){
+    return settings;
+}
+function getHeaderElement(){
+    return header;
+}
+function getActiveElement(){
+    const mainPage = document.querySelector('main');
+    for(let el of mainPage.children)
+    {
+        if(!el.classList.contains('hidden'))
+            return el;
+    }
+    return -1;
 }
  
-function getFooterPage(){
-    return document.querySelector('footer');
-}
 
-function getHomePage(){
-    return document.querySelector('.home');
-}
-
-function displayHome(prevPage){
-    toggleVisibility(getHomePage());
-    toggleVisibility(prevPage);
-    getFooterPage().querySelector('.nav-footer').style.bottom ='-20vh';
-}
-
-function createCategories(){
-    const categoriesPage = createCategory(12);
-    const categories = categoriesPage.getElementsByClassName('category-item');
-    for(let element of categories) {
-        element.addEventListener('click', getNewQuiz.bind(this, element.id,categoriesPage))
-    };
+function getInstanceOfHTMLElement(element){
+    for(let key of Object.keys(instances))
+    {
+        if(element.classList.contains(key))
+        {
+            return instances[key];
+        }
+    }
 
 }
+// function getFooterPage(){
+//     return document.querySelector('footer');
+// }
 
-function displayCategories(id){
-    console.log(id);
-    toggleVisibility(getHomePage());
-    toggleVisibility(getCategoriesPage());
-    getFooterPage().querySelector('.nav-footer').style.bottom ='-10vh';
-    chooseCategoryType(id);
+// function getHomePage(){
+//     return document.querySelector('.home');
+// }
+
+// function displayHome(prevPage){
+//     toggleVisibility(getHomePage());
+//     toggleVisibility(prevPage);
+//     getFooterPage().querySelector('.nav-footer').style.bottom ='-20vh';
+// }
+
+// function createCategories(){
+//     const categoriesPage = createCategory(12);
+//     const categories = categoriesPage.getElementsByClassName('category-item');
+//     for(let element of categories) {
+//         element.addEventListener('click', getNewQuiz.bind(this, element.id,categoriesPage))
+//     };
+
+// }
+
+// function displayCategories(id){
+//     console.log(id);
+//     toggleVisibility(getHomePage());
+//     toggleVisibility(getCategoriesPage());
+//     getFooterPage().querySelector('.nav-footer').style.bottom ='-10vh';
+//     chooseCategoryType(id);
     
-}
+// }
 
-function getCategoriesPage(){ 
-    return document.querySelector('.categories');
-}
+// function getCategoriesPage(){ 
+//     return document.querySelector('.categories');
+// }
 
-function getScorePage(){
+// function getScorePage(){
 
-}
+// }
 
 function changePage(id){
     switch(id){
@@ -70,14 +123,14 @@ function changePage(id){
        case "nav-score": getScorePage();
     }
 }
-function toggleVisibility(element) {
-    element.classList.toggle('hidden');
-}
+// function toggleVisibility(element) {
+//     element.classList.toggle('hidden');
+// }
 
-function getNewQuiz(id, prevPage){
-    toggleVisibility(prevPage);
-    const game =new Quiz();
-    game.init(id);
-}
+// function getNewQuiz(id, prevPage){
+//     toggleVisibility(prevPage);
+//     const game =new Quiz();
+//     game.init(id);
+// }
 
-export  {app, changePage};
+export  {app, changePage, getActiveElement, getInstanceOfHTMLElement, getHeaderElement, getSettingsInstance};

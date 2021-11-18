@@ -4,10 +4,12 @@ import images from '../assets/images';
 import htmlToElement from '../utils/htmlToElement';
 
 
+
 import './style.scss';
 
 export default class Question{
-    constructor(round){
+    constructor(round, timer){
+        this.timer = timer;
         this.round = round;
         this.questionPage = htmlToElement(indexQuestion);
         const title = this.questionPage.querySelector('.question-title');  
@@ -47,6 +49,9 @@ export default class Question{
     }
 
     init(qIndex){
+        console.log(this.timer);
+        // this.timer.init();
+        // this.timer.startTimerRound(qIndex, this);   
         this.buildTypeDependentFeatures(this.round.index);
         this.choices = [qIndex];
         this.populateChoices();
@@ -96,6 +101,7 @@ export default class Question{
         if(this.round.index<12)
         {
             title.textContent = 'Who is the author of this picture?';   
+            document.querySelector('.question-image').classList.remove('hidden');
             document.querySelector('.question-image').src = pic[imageNum];      
             for(let i=0;i<4;i++)
             {
@@ -104,6 +110,7 @@ export default class Question{
             }
         }
         else{
+            document.querySelector('.question-image').classList.add('hidden');
             title.textContent =  `Which is ${this.data[this.answer].author}\'s picture?`;
             for(let i=0;i<4;i++)
             {   const img = items[i].querySelector('.image-answer');
@@ -114,51 +121,58 @@ export default class Question{
         }
     }
     showQuestionPage(){
+        this.active=true;
         this.questionPage.classList.remove('hidden');
     }
     hideQuestionPage(){
+        this.active=false;
         this.questionPage.classList.add('hidden');
     }
     showUserAnswerInfo(el){
+        this.timer.stopFlag = true;
         this.round.saveAnswer(this.isCorrect(el.id));
-        const answerElement = document.getElementById(this.answer)
+        const answerElement = document.getElementById(el.id);
         console.log(this,this.answer,answerElement)
         if(this.round.index<12)
-        {
-            answerElement.querySelector('.answer-button').classList.add('right-answer-btn');
-            setTimeout(this.showModalArtist.bind(this,el),400);
+        {   const domElement = answerElement.querySelector('.answer-button');
+            this.putAnswerSign(answerElement,domElement,'right-answer-btn', 'wrong-answer-btn');
+            setTimeout(this.showModalPicture.bind(this,el),400);
         }
-        else{
-            
-            answerElement.querySelector('.image-answer').classList.add('wrap-right-image');
+        else{    
+            const domElement = answerElement.querySelector('.image-answer');  
+            this.putAnswerSign(answerElement,domElement,'wrap-right-image', 'wrap-wrong-image');
             setTimeout(this.showModalPicture.bind(this,el),400);
         }
        
     }
-    showModalArtist(el){
-        document.querySelector('.modal-content.answer').style.marginTop='40vh';
-        document.querySelector('.modal-answer').classList.remove('hidden');     
-        this.questionPage.querySelector('.modal-img').style.display ='none';
-        document.querySelector('.modal-description-text').textContent = this.data[el.id].author;
-        this.putAnswerSign(el,document.querySelector('.modal-description-sign'));
-    }
     showModalPicture(el){
+        
         document.querySelector('.modal-content.answer').style.marginTop='20vh';
         document.querySelector('.modal-answer').classList.remove('hidden');     
-        this.questionPage.querySelector('.modal-img-image').src =pic[el.id];
-        this.putAnswerSign(el,document.querySelector('.modal-img-sign'))
-        document.querySelector('.modal-description-text').textContent = this.data[el.id].author+", " + this.data[el.id].year;
+        this.questionPage.querySelector('.modal-img-image').src =pic[this.answer];
+        this.putAnswerSign(el,document.querySelector('.modal-img-sign'),'right-answer-sign', 'wrong-answer-sign')
+        document.querySelector('.modal-description-text').textContent = this.data[this.answer].author+", " + this.data[this.answer].year;
     }
     cleanPage(){
+        
         document.querySelector('.modal-answer').classList.add('hidden'); 
+        this.removeAnswerSign(document.querySelector('.modal-img-sign'),'right-answer-sign', 'wrong-answer-sign');
         if(this.round.index<12)
+        {
+            for(let el of this.choices)
             {
-                this.removeAnswerSign(document.querySelector('.modal-description-sign'));
-                document.getElementById(this.answer).querySelector('.answer-button').classList.remove('right-answer-btn');
+                const answerElement = document.getElementById(el);
+                const domElement = answerElement.querySelector('.answer-button');  
+                this.removeAnswerSign(domElement,'right-answer-btn', 'wrong-answer-btn')
             }
-        else {
-            this.removeAnswerSign(document.querySelector('.modal-img-sign'));
-            document.getElementById(this.answer).querySelector('.image-answer').classList.remove('wrap-right-image');
+        }
+        else {  
+            for(let el of this.choices)
+            {
+                const answerElement = document.getElementById(el);
+                const domElement = answerElement.querySelector('.image-answer');  
+                this.removeAnswerSign(domElement,'wrap-right-image', 'wrap-wrong-image')
+            }   
         }
         this.removeTypeDependentFeatures();
         this.round.processUserAnswer();
@@ -173,18 +187,36 @@ export default class Question{
 
     }
 
-    putAnswerSign(el,domElement){
+    putAnswerSign(el,domElement,classNameRight, classNameWrong){
         if(this.isCorrect(el.id))
         {
-            domElement.classList.add('right-answer-sign');
+            domElement.classList.add(classNameRight);
         }
         else{
-            domElement.classList.add('wrong-answer-sign')
+            domElement.classList.add(classNameWrong)
         }
     }
-    removeAnswerSign(element){
-        element.classList.remove('wrong-answer-sign');    
-        element.classList.remove('right-answer-sign');   
+    indicateWrongAnswer(){
+        this.round.saveAnswer(false);
+        document.querySelector('.modal-img-sign').classList.add('wrong-answer-sign');
+        document.querySelector('.modal-content.answer').style.marginTop='20vh';
+        document.querySelector('.modal-answer').classList.remove('hidden');     
+        this.questionPage.querySelector('.modal-img-image').src =pic[this.answer];
+        document.querySelector('.modal-description-text').textContent = this.data[this.answer].author+", " + this.data[this.answer].year;
+        // if(this.round.index<12)
+        // {   
+        //     const domElement = answerElement.querySelector('.answer-button');
+        //     domElement.classList.add('wrong-answer-btn');
+        // }
+        // else{    
+        //     const domElement = answerElement.querySelector('.image-answer');  
+        //     domElement.classList.add('wrap-wrong-image');
+        // }
+       
+    }
+    removeAnswerSign(element,classNameRight, classNameWrong){
+        element.classList.remove(classNameWrong);    
+        element.classList.remove(classNameRight);   
     }
 
     cleanClosingModal(){
@@ -196,7 +228,6 @@ export default class Question{
 
     getNextRound(){
         this.cleanClosingModal();
-        
         this.hideQuestionPage();
         this.round.getCategories();
     }

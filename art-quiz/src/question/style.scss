@@ -106,8 +106,8 @@
         .modal-img-sign{
             position: absolute;
             //content: "";
-            bottom: 3vh;
-            left: 3vw;
+            bottom: 3%;
+            left: 3%;
             width: 2em;
             height: 2em;
             //background: url(../assets/svg/right-answer.svg);
@@ -203,7 +203,12 @@
 .wrap-right-image{
     -webkit-filter: sepia(100%) hue-rotate(90deg) saturate(300%);
     filter: sepia(100%) hue-rotate(90deg) saturate(300%);
-  }
+}
+
+.wrap-wrong-image{
+    -webkit-filter: invert(40%) grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(2);
+      filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+}
 
 @keyframes animatetop {
     from {top: -70vh; opacity: 0}

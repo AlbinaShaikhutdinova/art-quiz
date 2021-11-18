@@ -28,12 +28,12 @@ export default class Footer{
         }
     }
     goHome(){
-        this.categories.hideCategories();
-        this.home.showHome();
+        this.categories.hide();
+        this.home.show();
     }
     goCat(){
-        this.categories.showCategories();
-        this.home.hideHome();
+        this.categories.show();
+        this.home.hide();
     }
    
 }

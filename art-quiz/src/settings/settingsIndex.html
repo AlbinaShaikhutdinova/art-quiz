@@ -1,0 +1,46 @@
+<div class="settings hidden">
+    <div class="settings-container">
+        <div class="settings-header">
+            <div class="go-back-sign"></div>
+            <div class="sub-title">Settings</div>
+        </div>
+        <div class="settings-section">
+            <div class="page-title">Volume</div>
+            <div class="volume-content">
+                <div class="volume-bar">
+                    <input type="range" value="0.7" min="0" max="1" step="0.1"  class="volume-slider">
+                </div>
+            </div>
+            <div class="volume-icons">
+                <div class="volume-icon off-icon"></div>
+                <div class="volume-icon on-icon"></div>
+            </div>
+        </div>
+        <div class="settings-section">
+            <div class="page-title">Timer</div>
+            <div class="timer-content">
+                <div class="timer-state">On</div>
+                <div class="timer-toggle">
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                      </label>
+                </div>
+            </div>
+        </div>
+        <div class="settings-section">
+            <div class="page-title">Time to answer</div>
+            <div class="answer-period">
+            
+                    <button class="amount-button minus" type="button" onclick="this.nextElementSibling.stepDown()"></button>
+                    <input id="amount-input" type="number" min="5" max="30" value="20" step="5" readonly class="number">
+                    <button class="amount-button plus" type="button" onclick="this.previousElementSibling.stepUp()"></button>
+             
+            </div>
+        </div>
+        <div class="settings-buttons">
+            <button class="default-setting">Default</button>
+            <button class="new-setting">Save</button>
+        </div>
+    </div>
+</div>

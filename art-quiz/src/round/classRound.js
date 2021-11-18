@@ -3,6 +3,9 @@ import htmlToElement from '../utils/htmlToElement';
 import round from './roundIndex.html';
 import Question from '../question/classQuestion';
 import result from './roundResult.html';
+import Timer from '../settings/timer';
+import { getHeaderElement } from '../app/app';
+
 
 //create a category
 //get data from local storage about played rounds
@@ -11,7 +14,9 @@ import result from './roundResult.html';
 class Round{
     constructor(){     
         this.resultPage = htmlToElement(result);
-        this.question = new Question(this); 
+        this.timer = new Timer();
+        this.question = new Question(this, this.timer); 
+        
     }
     init(index,questionsAmount=10, sameCategory=false){
         this.score = 0;
@@ -52,13 +57,13 @@ class Round{
         return localStorage.getItem(this.index);
     }
 
-    display(){
-        const newRound = htmlToElement(round);
-        newRound.querySelector('.page-title').textContent = this.title;
-        this.roundButton =  newRound.querySelector('.start-round__button');
-        document.querySelector('main').append(newRound);
-        return newRound;
-    }
+    // display(){
+    //     const newRound = htmlToElement(round);
+    //     newRound.querySelector('.page-title').textContent = this.title;
+    //     this.roundButton =  newRound.querySelector('.start-round__button');
+    //     document.querySelector('main').append(newRound);
+    //     return newRound;
+    // }
 
     processUserAnswer(){
         this.currentQuestionIndex++;
@@ -72,10 +77,14 @@ class Round{
     }
     startRound(categories){
         this.categories=categories;
+        getHeaderElement().showGameMode();
         this.getNextQuestion();
         this.question.showQuestionPage();
+        
     }
-    getNextQuestion(){        
+    getNextQuestion(){     
+        this.timer.init();
+        this.timer.startTimerRound(this.qIndex, this.question);   
         this.question.init(this.currentQuestionIndex);  
     }
 
@@ -83,7 +92,8 @@ class Round{
         this.saveResult();
         const result = this.getCurrentScore();
         this.showFinishModal(result);
-        this.updateCategoriesStyle(document.getElementById('category'+this.index),this.index);
+        this.categories.updateCategoryStyle(document.getElementById('category'+this.index),this.index);
+        getHeaderElement().showDefaultMode();
     }
     showFinishModal(result){
         this.evaluateResult(result);
@@ -107,12 +117,9 @@ class Round{
             document.querySelector('.modal-result__text').textContent='Congratulations!';
         }
     }
-    updateCategoriesStyle(item, index){
-        item.querySelector('.title-score').textContent = `${localStorage.getItem(index+'score')}/${10}`;
-        item.querySelector('.category-item-bg').classList.remove('not-visited');
-    }
+
     getCategories(){    
-        this.categories.showCategories();
+        this.categories.show();
         // this.init(++this.index);
         // this.startRound();
     }

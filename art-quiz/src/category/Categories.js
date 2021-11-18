@@ -6,7 +6,7 @@ import './style.scss';
 import pic from '../utils/importPics';
 
 export default class CategoriesPage{
-    constructor(){
+    constructor(settings){
         const amountCategories=12;
         this.categoriesElement = htmlToElement(categories);
         const main = document.querySelector('main');
@@ -20,15 +20,13 @@ export default class CategoriesPage{
             element.addEventListener('click', this.getNewQuiz.bind(this, element))
         };
         this.round = new Round(this.round);
-        //return this.categoriesElement;
-       
+        this.settings=settings;
+        
     }
-    // getHomeInstance(home){
-    //     this.home=home;
-    // }
+
 
     getNewQuiz(el){
-        this.hideCategories();
+        this.hide();
         this.round.init(el.id);
         this.round.startRound(this);
     }
@@ -53,6 +51,7 @@ export default class CategoriesPage{
     }
 
     createCategories(type){
+        console.log(type);
         const amountQ = 10;
         const amountCategories = type ==='artist'? 12 : 24;
         let i = type ==='artist'? 0 : 12;
@@ -67,23 +66,32 @@ export default class CategoriesPage{
     getBackground(index,image,item, a){
         item.querySelector('.title-index').textContent=`Category ${a}`;
         const bg = item.querySelector('.category-item-bg');
-        if(localStorage.getItem(index+'score'))
-            {
-                item.querySelector('.title-score').textContent = `${localStorage.getItem(index+'score')}/${10}`;
-                bg.classList.remove('not-visited');
-            }
-        else bg.classList.add('not-visited')
+        this.updateCategoryStyle(item,index);
         item.id ="category"+ index;
         bg.style.backgroundImage = "url('"+image+"')";   
     }
 
 
+    updateCategoryStyle(item, index){
+        if(localStorage.getItem(index+'score'))
+            {
+                item.querySelector('.title-score').textContent = `${localStorage.getItem(index+'score')}/${10}`;
+                item.querySelector('.category-item-bg').classList.remove('not-visited');
+            }
+        else {
+            item.querySelector('.category-item-bg').classList.add('not-visited')
+            item.querySelector('.title-score').textContent="";
+        }
+        
+    }
 
-    showCategories(){
+    show(){
+        this.active = true;
         this.categoriesElement.classList.remove('hidden');
         document.querySelector('.nav-footer').style.bottom ='-10vh';
     }
-    hideCategories(){
+    hide(){
+        this.active = false;
         this.categoriesElement.classList.add('hidden');
         document.querySelector('.nav-footer').style.bottom ='-20vh';
     }

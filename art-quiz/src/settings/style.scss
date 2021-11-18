@@ -1,0 +1,237 @@
+.settings{
+    background-color: $background-color;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 10;
+    top: 0vh;
+    color: $elements-color;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    //animation-name: animateTotop;
+}
+@keyframes animatetop {
+    from {top: -100vh; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+@keyframes animateTotop {
+    from {top: 0; opacity: 1}
+    to {top: -100vh; opacity: 0}
+}
+
+.settings-container{ 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1em 2em 5em 2em;
+    .settings-header{
+        width: 100%;
+        display: flex;
+        padding-bottom: 2em;
+        .go-back-sign{
+            display: flex;
+            justify-self: flex-start;
+            align-self: flex-start;
+            width: 2em;
+            height: 2em;
+            background-image: url(../assets/svg/arrow-ios-back-fill.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .sub-title{
+            padding-left: 25vw;
+            display: flex;
+            justify-self: center;
+            align-self: center;
+        }
+
+    }
+    .settings-buttons{
+        display: flex;
+        gap: 5%;
+        button{
+            width: 40vw;
+        }
+    }
+    .settings-section{
+        padding-bottom: 2em;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .answer-period{
+        display: flex;
+        .amount-button{
+            border: none;
+            width: 33px;
+            height: 33px;
+            background: no-repeat contain;
+            background-color: transparent;
+            // font-size: 24px;
+            // border-radius: 50%;
+            // padding: 0.1em 0.4em;
+        }
+        button:hover{
+            background-color: transparent;
+            border: none;
+            color: black;
+        }
+        #amount-input{
+            all: unset;
+           
+            font-weight: normal;
+            font-size: 22px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            width: 2em;
+        
+          }
+        .plus{
+            background-image: url(../assets/svg/Vectorpl.svg);
+        }
+        .minus{
+            //margin-right: 1.5em;
+            background-image: url(../assets/svg/Vectormin.svg);
+        }
+    }
+
+    .volume-content{
+        width: 100%;
+    }
+    .volume-bar{
+        width: 100%;
+    }
+    .volume-icons{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .volume-icon{
+            width: 2em;
+            height: 2em;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .off-icon{
+         
+            background-image: url(../assets/svg/bi_volume-mute.svg);
+            
+        }
+        .on-icon{  
+            background-image: url(../assets/svg/bi_volume-down.svg);
+        
+        }
+       
+    }
+    .timer-content{
+        display: flex;
+        gap: 10%;
+        .timer-toggle{
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 40px;
+                height: 20px;
+              }
+              
+              .switch input { 
+                opacity: 0;
+                width: 0;
+                height: 0;
+              }
+              
+              .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 20px;
+              }
+              
+              .slider:before {
+                position: absolute;
+                content: "";
+                height: 16px;
+                width: 16px;
+                left: 2px;
+                bottom: 2px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 50%;
+              }
+              
+              input:checked + .slider {
+                background-color: $main-color;
+              }
+              
+              input:focus + .slider {
+                box-shadow: 0 0 1px $main-color;
+              }
+              
+              input:checked + .slider:before {
+                -webkit-transform: translateX(20px);
+                -ms-transform: translateX(20px);
+                transform: translateX(20px);
+              }
+
+        }
+    }
+    input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.945);
+        border-radius: 5px;
+        background-image: linear-gradient($main-color, $main-color);
+        background-size: 70% 100%;
+        background-repeat: no-repeat;
+    }
+      
+      /* Input Thumb */
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background: white;
+        opacity: 1;
+        cursor: ew-resize;
+        /* box-shadow: 0 0 2px 0 #555; */
+        transition: background .3s ease-in-out;
+      }
+      
+      
+      /* Input Track */
+      input[type=range]::-webkit-slider-runnable-track  {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+      
+      input[type=range]::-moz-range-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+      
+      input[type="range"]::-ms-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+}
