@@ -90,8 +90,30 @@
     color: black;
     animation-name: animatetop;
     animation-duration: 0.4s;
-}
 
+    
+
+}
+.modal-content.exit{
+    margin-top: 30vh;
+    .nav-buttons{
+        display: flex;
+        justify-content: center;
+        gap: 3%;
+        .modal-exit-button{
+            color: black;
+            width: 30vw;
+        }
+        .modal-exit-button.cancel-exit{
+            background-color: $elements-color;
+            border-color: black;
+        }
+        .modal-exit-button.exit{
+            background-color: $main-color;
+            
+        }
+    }
+}
 .modal-content.answer{
     .modal-img{
         position: relative;

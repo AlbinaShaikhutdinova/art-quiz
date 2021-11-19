@@ -2,6 +2,7 @@ import indexQuestion from './indexQuestion.html';
 import pic from '../utils/importPics';
 import images from '../assets/images';
 import htmlToElement from '../utils/htmlToElement';
+import {getSettingsInstance } from '../app/app';
 
 
 
@@ -9,6 +10,7 @@ import './style.scss';
 
 export default class Question{
     constructor(round, timer){
+       
         this.timer = timer;
         this.round = round;
         this.questionPage = htmlToElement(indexQuestion);
@@ -24,8 +26,9 @@ export default class Question{
         
         document.querySelector('.modal-result__button.modal-home').addEventListener('click', this.getHomePage.bind(this));
         document.querySelector('.modal-result__button.next').addEventListener('click', this.getNextRound.bind(this));
-        this.questionPage.querySelector('.modal-button').addEventListener('click', this.cleanPage.bind(this) )
+        this.questionPage.querySelector('.modal-button').addEventListener('click', this.getNextQuestion.bind(this) )
         
+       
         this.data = images;   
     }
 
@@ -49,9 +52,8 @@ export default class Question{
     }
 
     init(qIndex){
-        console.log(this.timer);
-        // this.timer.init();
-        // this.timer.startTimerRound(qIndex, this);   
+        this.settings = getSettingsInstance();
+        console.log(this.timer);  
         this.buildTypeDependentFeatures(this.round.index);
         this.choices = [qIndex];
         this.populateChoices();
@@ -130,20 +132,23 @@ export default class Question{
     }
     showUserAnswerInfo(el){
         this.timer.stopFlag = true;
+        this.getAnswerSignal(this.isCorrect(el.id));
         this.round.saveAnswer(this.isCorrect(el.id));
         const answerElement = document.getElementById(el.id);
         console.log(this,this.answer,answerElement)
         if(this.round.index<12)
         {   const domElement = answerElement.querySelector('.answer-button');
             this.putAnswerSign(answerElement,domElement,'right-answer-btn', 'wrong-answer-btn');
-            setTimeout(this.showModalPicture.bind(this,el),400);
         }
         else{    
             const domElement = answerElement.querySelector('.image-answer');  
-            this.putAnswerSign(answerElement,domElement,'wrap-right-image', 'wrap-wrong-image');
-            setTimeout(this.showModalPicture.bind(this,el),400);
+            this.putAnswerSign(answerElement,domElement,'wrap-right-image', 'wrap-wrong-image');    
         }
-       
+        setTimeout(this.showModalPicture.bind(this,el),400);
+    }
+    getAnswerSignal(correct){
+        this.settings.playAnswerSignal(correct);
+
     }
     showModalPicture(el){
         
@@ -153,29 +158,16 @@ export default class Question{
         this.putAnswerSign(el,document.querySelector('.modal-img-sign'),'right-answer-sign', 'wrong-answer-sign')
         document.querySelector('.modal-description-text').textContent = this.data[this.answer].author+", " + this.data[this.answer].year;
     }
-    cleanPage(){
-        
+
+    getNextQuestion(){
+        this.cleanPage();
+        this.round.processUserAnswer();
+    }
+
+    cleanPage(){ 
         document.querySelector('.modal-answer').classList.add('hidden'); 
         this.removeAnswerSign(document.querySelector('.modal-img-sign'),'right-answer-sign', 'wrong-answer-sign');
-        if(this.round.index<12)
-        {
-            for(let el of this.choices)
-            {
-                const answerElement = document.getElementById(el);
-                const domElement = answerElement.querySelector('.answer-button');  
-                this.removeAnswerSign(domElement,'right-answer-btn', 'wrong-answer-btn')
-            }
-        }
-        else {  
-            for(let el of this.choices)
-            {
-                const answerElement = document.getElementById(el);
-                const domElement = answerElement.querySelector('.image-answer');  
-                this.removeAnswerSign(domElement,'wrap-right-image', 'wrap-wrong-image')
-            }   
-        }
-        this.removeTypeDependentFeatures();
-        this.round.processUserAnswer();
+        this.removeTypeDependentFeatures();  
     }
     removeTypeDependentFeatures(){
         const items = document.getElementsByClassName('answer-item');
@@ -184,7 +176,6 @@ export default class Question{
             el.removeEventListener('click',this.showUserAnswerInfo.bind());
             el.innerHTML="";     
         }
-
     }
 
     putAnswerSign(el,domElement,classNameRight, classNameWrong){
@@ -198,20 +189,13 @@ export default class Question{
     }
     indicateWrongAnswer(){
         this.round.saveAnswer(false);
+        //this.round.currentQuestionIndex++;
+        this.getAnswerSignal(false);
         document.querySelector('.modal-img-sign').classList.add('wrong-answer-sign');
         document.querySelector('.modal-content.answer').style.marginTop='20vh';
         document.querySelector('.modal-answer').classList.remove('hidden');     
         this.questionPage.querySelector('.modal-img-image').src =pic[this.answer];
         document.querySelector('.modal-description-text').textContent = this.data[this.answer].author+", " + this.data[this.answer].year;
-        // if(this.round.index<12)
-        // {   
-        //     const domElement = answerElement.querySelector('.answer-button');
-        //     domElement.classList.add('wrong-answer-btn');
-        // }
-        // else{    
-        //     const domElement = answerElement.querySelector('.image-answer');  
-        //     domElement.classList.add('wrap-wrong-image');
-        // }
        
     }
     removeAnswerSign(element,classNameRight, classNameWrong){
@@ -237,6 +221,8 @@ export default class Question{
         this.hideQuestionPage();
         document.querySelector('.home').classList.remove('hidden')
     }
+
+ 
  
  
 }

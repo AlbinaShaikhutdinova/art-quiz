@@ -42,3 +42,7 @@ button:active{
 .not-visited{
     filter: grayscale(100%);
 }
+
+.no-visibility{
+    visibility: hidden;
+}

@@ -4,7 +4,7 @@ import round from './roundIndex.html';
 import Question from '../question/classQuestion';
 import result from './roundResult.html';
 import Timer from '../settings/timer';
-import { getHeaderElement } from '../app/app';
+import { getHeaderElement, getSettingsInstance } from '../app/app';
 
 
 //create a category
@@ -17,8 +17,10 @@ class Round{
         this.timer = new Timer();
         this.question = new Question(this, this.timer); 
         
+        
     }
     init(index,questionsAmount=10, sameCategory=false){
+        this.settings = getSettingsInstance();
         this.score = 0;
         this.answers = [];
         this.qIndex =0;
@@ -29,11 +31,26 @@ class Round{
         this.currentQuestionIndex=this.index*this.qAmount;
         this.qIndexInRound =1;
         this.title = `Category ${this.index}`;  
-        // if(sameCategory)
-        // this.question.buildTypeDependentFeatures(index);
+        document.querySelector('.end-round-sign').addEventListener('click', this.showExitQuestion.bind(this))
+        document.querySelector('.modal-exit-button.cancel-exit').addEventListener('click', this.hideExitQuestion.bind(this));
+        document.querySelector('.modal-exit-button.exit').addEventListener('click', this.abortRound.bind(this));
     }
 
+    showExitQuestion(){
+        this.question.questionPage.querySelector('.modal.exit-window').classList.remove('hidden');
+    }
+    hideExitQuestion(){
+        document.querySelector('.modal.exit-window').classList.add('hidden');
+    }
 
+    abortRound(){
+        this.hideExitQuestion();
+        this.timer.stopTimer();
+        this.question.cleanPage();
+        this.question.hideQuestionPage();
+        this.getCategories();
+        getHeaderElement().showDefaultMode();
+    }
     getCurrentScore(){
         return this.score;
     }
@@ -57,16 +74,9 @@ class Round{
         return localStorage.getItem(this.index);
     }
 
-    // display(){
-    //     const newRound = htmlToElement(round);
-    //     newRound.querySelector('.page-title').textContent = this.title;
-    //     this.roundButton =  newRound.querySelector('.start-round__button');
-    //     document.querySelector('main').append(newRound);
-    //     return newRound;
-    // }
 
     processUserAnswer(){
-        this.currentQuestionIndex++;
+        //this.currentQuestionIndex++;
         if(this.qIndex<this.qAmount)
         {
             this.getNextQuestion();   
@@ -82,14 +92,18 @@ class Round{
         this.question.showQuestionPage();
         
     }
-    getNextQuestion(){     
-        this.timer.init();
-        this.timer.startTimerRound(this.qIndex, this.question);   
-        this.question.init(this.currentQuestionIndex);  
+    getNextQuestion(){    
+        if(this.settings.appSettings.timer) 
+        {
+            this.timer.init();
+            this.timer.startTimerRound(this.qIndex, this.question);  
+        } 
+        this.question.init(this.currentQuestionIndex++);  
     }
 
     finishRound(){
         this.saveResult();
+        this.settings.playGameOverSignal();
         const result = this.getCurrentScore();
         this.showFinishModal(result);
         this.categories.updateCategoryStyle(document.getElementById('category'+this.index),this.index);
@@ -120,8 +134,6 @@ class Round{
 
     getCategories(){    
         this.categories.show();
-        // this.init(++this.index);
-        // this.startRound();
     }
 
     

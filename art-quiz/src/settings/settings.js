@@ -10,25 +10,67 @@ export default class Settings{
         this.prevPage="";
         this.settingsPage = htmlToElement(settings); 
         document.querySelector('main').append(this.settingsPage);
-        this.settingsPage.querySelector('.go-back-sign').addEventListener('click', this.hide.bind(this));
+
         this.volumeSlider = this.settingsPage.querySelector('.volume-slider');
-        this.audio = document.querySelector('audio');
-        this.volumeSlider.addEventListener('change',this.changeVolume);
+        this.settingsTimer = this.settingsPage.querySelector('.timer-toggle').querySelector('input');
+        this.audoSignals = document.getElementsByClassName('answer-signal');
+        this.input = this.settingsPage.querySelector('#amount-input');
+        
+
+
+        this.settingsPage.querySelector('.go-back-sign').addEventListener('click', this.hide.bind(this));
+        this.settingsPage.querySelector('.new-setting').addEventListener('click',this.updateSettings.bind(this));
+        this.settingsPage.querySelector('.default-setting').addEventListener('click',this.setDefaultSettings.bind(this))
+        this.settingsPage.querySelector('.slider').addEventListener('click',this.changeStatus.bind(this));
+        this.volumeSlider.addEventListener('change',this.changeVolumeSlider.bind(this));
+        
     }
-    init(volume=0.5, timer=true, answerTime=20){
+    init(){
+        if(localStorage.getItem('settings'))
+        {
+            this.appSettings = JSON.parse(localStorage.getItem('settings'));
+            this.timer=this.appSettings.timer;
+            console.log(this.appSettings)
+        }
+        else this.setDefaultSettings();
+        this.updatePage();
+    }
+    updatePage(){
+        this.volumeSlider.value=this.appSettings.volume;
+        this.input.value = this.appSettings.answerTime;
+        this.settingsTimer.checked = this.appSettings.timer;
+        this.updateVolume();
+    }
+    updateVolume()
+    {
+        for(let el of this.audoSignals)
+        {
+            el.volume=this.appSettings.volume;
+        }
+        this.changeVolumeSlider();
+    }
+    setDefaultSettings(volume=0.5, timer=true, answerTime=20){
         this.volume=volume;
         this.timer=timer;
         this.answerTime = answerTime;
-        this.updateSettingsStorage();
-    }
-    updateSettingsStorage(){
         this.appSettings = {
             volume: this.volume,
             timer: this.timer,
             answerTime: this.answerTime,
         }
-        //localStorage.setItem('settings',JSON.stringify(this.appSettings))
-
+        this.updatePage();
+        this.updateSettingsStorage();
+    }
+    updateSettings(){
+        this.appSettings.volume = this.volumeSlider.value;
+        this.appSettings.timer = this.timer;
+        this.appSettings.answerTime = this.settingsPage.querySelector('#amount-input').value;
+        this.updateSettingsStorage();
+        this.updateVolume();
+    }
+    updateSettingsStorage(){
+        localStorage.setItem('settings',JSON.stringify(this.appSettings));
+        this.hide();
     }
     getSettings(){
         return this.appSettings;
@@ -46,13 +88,31 @@ export default class Settings{
         document.querySelector('.settings').animationName="animatetop";
     }
 
-    changeVolume() {
+    playAnswerSignal(correct){
+        if(correct)
+        {
+            document.querySelector('.answer-signal.right').play();
+        }
+        else document.querySelector('.answer-signal.wrong').play();
+    }
 
-        let target = document.querySelector('.volume-slider');
+    playGameOverSignal(){
+        document.querySelector('.answer-signal.game-over').play();
+    }
+
+    changeVolumeSlider() {
+        let target = this.volumeSlider;
         const min = target.min
         const max = target.max
         const val = target.value
         target.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%';
+    }
+
+    changeStatus(){
+        if(this.timer)
+            this.timer=false;
+        else this.timer = true;
+        console.log(this.timer)
     }
 
     // show(){

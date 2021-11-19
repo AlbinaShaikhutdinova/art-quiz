@@ -25,10 +25,11 @@ header{
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     color: $elements-color;
     font-size: 12px;
     .header-progress-bar{
-        width: 70%;
+        width: 80%;
         height: 3px;
         background-color: $elements-color;
         #bar{
@@ -36,6 +37,20 @@ header{
             height: 3px;
             background-color: $main-color;
         }
+    }
+    .timer-regim{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 90%;
+    }
+  
+    .end-round-sign{
+        width: 1em;
+        height: 1em;
+        background-image: url(../assets/svg/close.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 }
 
