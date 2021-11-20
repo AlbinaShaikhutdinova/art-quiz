@@ -1,0 +1,104 @@
+.score{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.score-container{
+    padding: 1em 2em;
+    .score-header{
+        display: flex;
+        align-items: center;
+        .go-back-button{
+            width: 2em;
+            height: 2em;
+            background-image: url(../assets/svg/arrow-ios-back-fill.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .page-title{
+            color: white;
+            width: 90%;
+            display: flex;
+            justify-self: center;
+            align-self: center;
+        }
+    }
+
+
+    .score-items-container{
+        padding: 1em 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 2%;
+        //gap: 3%;
+        .score-item{
+            height: 11rem;
+            max-width: 9rem;
+            width: 100%;
+        
+        }
+    }
+ 
+    .score-item-bg{
+        //max-width: 43vw;
+        
+        max-width: 9rem;
+        width: 100%;
+        max-height: 9rem;
+        height: 100%;
+        //background-image: url('../assets/img/100.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+    
+    }
+
+    
+    
+}
+.modal.modal-score{
+    .modal-content.score{
+        justify-content: space-evenly;
+        padding-top: 1em;
+        margin-top: 10vh;
+        height: 70vh;
+        width: 90vw;
+        .modal-picture{
+            width: 40vh;
+            height: 40vh;
+            .modal-image{
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
+        }
+        .modal-text{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-exit{
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            justify-self: flex-start;
+            .modal-exit-sign{
+                width: 1em;
+                height: 1em;
+                background-image: url(../assets/svg/VectorExit.svg);
+                background: contain no-repeat;
+
+            }
+        }
+
+        
+    }
+    
+}

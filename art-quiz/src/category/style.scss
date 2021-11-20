@@ -54,3 +54,25 @@
 
 //////////////////////////////////////
 
+.modal.user-query{
+    .modal-content.query{
+        margin-top: 40vh;
+        .nav-buttons{
+            display: flex;
+            justify-content: center;
+            gap: 3%;
+            .button{
+                color: black;
+                width: 30vw;
+            }
+            .button.play-again{
+                background-color: $elements-color;
+                border-color: black;
+            }
+            .button.show-results{
+                background-color: $main-color;
+                
+            }
+        }
+    }
+}

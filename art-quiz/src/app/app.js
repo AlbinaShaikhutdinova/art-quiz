@@ -8,6 +8,7 @@ import Footer from '../footer/footer';
 import CategoriesPage from '../category/Categories';
 import Header from '../header/header';
 import Settings from '../settings/settings';
+import Score from '../score/score';
 
 
 let instances={};
@@ -18,6 +19,7 @@ const footer = new Footer(categories, home);
 const settings = new Settings(home,categories);
 settings.init();
 const header = new Header(settings);
+const score = new Score();
 function app(){
 
     
@@ -51,6 +53,9 @@ function app(){
 // }
 function getSettingsInstance(){
     return settings;
+}
+function getScoreInstance(){
+    return score;
 }
 function getHeaderElement(){
     return header;
@@ -133,4 +138,4 @@ function changePage(id){
 //     game.init(id);
 // }
 
-export  {app, changePage, getActiveElement, getInstanceOfHTMLElement, getHeaderElement, getSettingsInstance};
+export  {app, changePage, getActiveElement, getInstanceOfHTMLElement,getScoreInstance, getHeaderElement, getSettingsInstance};

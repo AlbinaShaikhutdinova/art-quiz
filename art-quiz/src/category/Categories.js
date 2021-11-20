@@ -4,6 +4,7 @@ import Quiz from '../quiz/Quiz';
 import categories from './index.html';
 import './style.scss';
 import pic from '../utils/importPics';
+import {getScoreInstance} from '../app/app';
 
 export default class CategoriesPage{
     constructor(settings){
@@ -17,17 +18,41 @@ export default class CategoriesPage{
         }
         const items =this.categoriesElement.getElementsByClassName('category-item');
         for(let element of items) {
-            element.addEventListener('click', this.getNewQuiz.bind(this, element))
+            element.addEventListener('click', this.handleCategoryQuery.bind(this, element))
         };
+        //this.queryElement=items[0];
+        document.querySelector('.button.play-again').addEventListener('click', this.getNewQuiz.bind(this));
+        document.querySelector('.button.show-results').addEventListener('click', this.getCategoryScore.bind(this))
         this.round = new Round(this.round);
         this.settings=settings;
         
     }
-
-
-    getNewQuiz(el){
+    getCategoryScore(){
+        this.hideModalQuestion();
         this.hide();
-        this.round.init(el.id);
+        this.score = getScoreInstance();
+        this.score.fillScorePage(this,this.queryElement.id);
+        this.score.show();
+    }
+
+    handleCategoryQuery(element){
+        this.queryElement = element;
+        if(element.querySelector('.category-item-bg').classList.contains('not-visited'))
+            this.getNewQuiz();
+        else this.showModalQuestion();
+
+    }
+    showModalQuestion(){  
+        document.querySelector('.modal.user-query').classList.remove('hidden');
+    }
+    hideModalQuestion(){
+        document.querySelector('.modal.user-query').classList.add('hidden');
+    }
+
+    getNewQuiz(){
+        this.hideModalQuestion();
+        this.hide();
+        this.round.init(this.queryElement.id);
         this.round.startRound(this);
     }
     buildHtml(){
