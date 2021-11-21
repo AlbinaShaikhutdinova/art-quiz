@@ -35,3 +35,20 @@
     font-size: 24px;
     line-height: 28px;
 }
+
+@media (max-width: 768px) and(min-width:520px) {
+    .home__container{
+        justify-content: center;
+
+    }
+    .app-logo{
+        width: 15rem;
+        height: 10rem;
+    }
+    .home-page__button{
+        //padding: 14px 20px;
+        width: 40%;
+      
+    }
+
+}

@@ -75,6 +75,7 @@ footer{
 }
 
 .nav-link{
+    cursor: pointer;
     height: 100%;
     max-width: 10vw;
     width: 100%; 
@@ -100,6 +101,11 @@ footer{
     }
 }
 
+.nav-link:hover{
+    color: $main-color;
+    
+}
+
 .categories-link{
     height: 100%;
     max-width: 10vw;
@@ -120,4 +126,11 @@ footer{
     align-items: center;
     justify-content: center;
     
+}
+
+@media (max-width: 768px) and(min-width:520px) {
+    .nav-footer{
+        display: none;
+    }
+
 }

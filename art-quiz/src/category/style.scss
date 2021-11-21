@@ -1,10 +1,7 @@
 .categories{
     height: 80vh;
     width: 100%;
-    // position: relative;
-    // z-index: 0;
     overflow-y: scroll;
-
 
 }
 .categories__container{
@@ -76,3 +73,27 @@
         }
     }
 }
+
+@media (max-width: 768px) and(min-width:520px) {
+    .item-title.sub-title{
+        font-size: 18px;
+        letter-spacing: -0.63px;
+        line-height: 22px;
+        margin-bottom: 0.2em;
+    }
+}
+
+@media (max-width: 768px) and (min-width:640px) {
+
+    .category-item{
+        height: 14rem;
+        max-width: 12rem;
+        width: 100%;
+    
+    }
+    .category-item-bg{
+        max-width: 12rem;
+        max-height: 12rem;
+    }
+}
+

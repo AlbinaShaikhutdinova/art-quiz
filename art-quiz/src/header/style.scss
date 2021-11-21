@@ -10,14 +10,41 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .settings-icon{
-        width: 34px;
-        height: 34px;
-        background-image: url(../assets/svg/carbon_settings.svg);
-        background-repeat: no-repeat;
-        background-size: contain;
-
+    .default-header{
+        width: 100%;
+        .nav-header{
+            display: none;
+        }
+        .default-container
+        {
+            width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+            .settings-icon{
+                width: 34px;
+                height: 34px;
+                background-image: url(../assets/svg/carbon_settings.svg);
+                background-repeat: no-repeat;
+                background-size: contain;
+                cursor: pointer;
+                opacity: 0.8;
+            }
+            .settings-icon:hover{
+                opacity: 1;
+            }
+            .header-logo{
+                width: 7em;
+                height: 3em;
+                background-image: url(../assets/svg/Group\ 1438.svg);
+                background-repeat: no-repeat;
+                background-size: contain;
+        
+            }
+        }
+        
     }
+   
 }
 
 .game-header{
@@ -54,3 +81,35 @@ header{
     }
 }
 
+@media (max-width: 768px) and(min-width:520px) {
+    .header-container{
+    
+        .default-header{
+            width: 100%;
+            .nav-header{
+                display: inline-block;
+                color: $elements-color;
+                .nav-container{
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    gap: 3em;
+                }
+            }
+            .default-container
+            {
+                .header-logo{
+                    width: 7em;
+                    height: 3em;
+                    background-image: url(../assets/svg/Group\ 1438.svg);
+                    background-repeat: no-repeat;
+                    background-size: contain;
+            
+                }
+            }
+            
+        }
+       
+    }
+
+}

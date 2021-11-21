@@ -1,11 +1,16 @@
 .score{
     width: 100%;
     height: 100%;
-    overflow: scroll;
+    
 }
 
 .score-container{
     padding: 1em 2em;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    height: 100%;
+    //position: relative;
     .score-header{
         display: flex;
         align-items: center;
@@ -24,12 +29,14 @@
             align-self: center;
         }
     }
+    
 
 
     .score-items-container{
+        overflow-y: scroll;
         padding: 1em 0;
         width: 100%;
-        height: 100%;
+        height: 90%;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-evenly;
@@ -45,8 +52,6 @@
     }
  
     .score-item-bg{
-        //max-width: 43vw;
-        
         max-width: 9rem;
         width: 100%;
         max-height: 9rem;
@@ -56,13 +61,42 @@
         background-repeat: no-repeat;
         border-radius: 10px;
     
-    }
+    } 
+}
 
+.round-hidden{
+    width: 16px;
+    height: 16px;
+    background-color: gray;
+    background-image: url(../assets/svg/icons8-lock.svg);
+    background-size: contain;
+}
+
+.score-pagination{
+    // position: absolute;
+    // bottom: 0;
     
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6em;
+    width: 100%;
+    height: 2rem;
+    // float: bottom;
+    .pagination-item{
+        display: block;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        background: $elements-color 1em 1em;
+        color: $elements-color;
+    }
+    .pagination-item:hover{
+        background-color: $main-color;
+    }
 }
 .modal.modal-score{
-    .modal-content.score{
+    .modal-content.score-content{
         justify-content: space-evenly;
         padding-top: 1em;
         margin-top: 10vh;
@@ -101,4 +135,9 @@
         
     }
     
+}
+
+@media (max-width: 768px) and (min-width:520px) {
+    
+
 }

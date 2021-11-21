@@ -88,9 +88,15 @@ export default class Question{
     }
 
     populateChoices(){
+        let flag=false;
         while(this.choices.length<4){
             let rand = this.getRandom(0,240)
-            if(this.choices.includes(rand))
+            for(let el of this.choices)
+            {
+                if(this.data[el].author ===this.data[rand].author)
+                    flag=true;
+            }
+            if(this.choices.includes(rand)||flag)
                 continue;
             this.choices.push(rand);
         }

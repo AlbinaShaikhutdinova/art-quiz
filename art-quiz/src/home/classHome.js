@@ -2,6 +2,7 @@ import importImages from '../utils/importImages';
 import htmlToElement from '../utils/htmlToElement';
 import homePage from './index.html';
 import Categories from '../category/Categories';
+import { getHeaderElement } from '../app/app';
 
 import './style.scss';
 class Home{
@@ -34,7 +35,7 @@ class Home{
         this.hide();
         this.catPage.createCategories(id);
         this.catPage.show();
-        // this.catPage.getHomeInstance(this);
+        getHeaderElement().showLogo();
     }
     show(){
         this.active=true;
@@ -43,8 +44,6 @@ class Home{
     hide(){
         this.active=false;
         this.homeElement.classList.add('hidden');
-        // const home = document.querySelector('body');
-        // home.style.backgroundColor = "black";
     }
 
 }

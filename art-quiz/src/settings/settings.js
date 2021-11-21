@@ -17,7 +17,7 @@ export default class Settings{
         this.input = this.settingsPage.querySelector('#amount-input');
         
 
-
+        this.settingsPage.querySelector('.settings-exit-sign').addEventListener('click', this.hide.bind(this));
         this.settingsPage.querySelector('.go-back-sign').addEventListener('click', this.hide.bind(this));
         this.settingsPage.querySelector('.new-setting').addEventListener('click',this.updateSettings.bind(this));
         this.settingsPage.querySelector('.default-setting').addEventListener('click',this.setDefaultSettings.bind(this))

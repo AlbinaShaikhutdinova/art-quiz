@@ -15,11 +15,12 @@ let instances={};
 
 const categories = new CategoriesPage();
 const home = new Home(categories);
-const footer = new Footer(categories, home);
+const score = new Score();
+const footer = new Footer(categories, home, score);
 const settings = new Settings(home,categories);
 settings.init();
-const header = new Header(settings);
-const score = new Score();
+const header = new Header(settings, footer);
+
 function app(){
 
     

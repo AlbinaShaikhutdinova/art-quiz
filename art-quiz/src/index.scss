@@ -46,3 +46,10 @@ button:active{
 .no-visibility{
     visibility: hidden;
 }
+
+@media (max-width: 768px) and (min-width:520px) {
+    button{
+        font-size: 24px;
+    }
+
+}
