@@ -4,20 +4,21 @@
     height: 100vh;
     position: absolute;
     z-index: 10;
-    top: 0vh;
+    top: -100vh;
     color: $elements-color;
-    animation-name: animatetop;
+    transition: all 0.4s;
+    //animation-name: animatetop;
     animation-duration: 0.4s;
     //animation-name: animateTotop;
 }
-@keyframes animatetop {
-    from {top: -100vh; opacity: 0}
-    to {top: 0; opacity: 1}
-}
-@keyframes animateTotop {
-    from {top: 0; opacity: 1}
-    to {top: -100vh; opacity: 0}
-}
+// @keyframes animatetop {
+//     from {top: -100vh; opacity: 0}
+//     to {top: 0; opacity: 1}
+// }
+// @keyframes animateTotop {
+//     from {top: 0; opacity: 1}
+//     to {top: -100vh; opacity: 0}
+// }
 
 
 .settings-container{ 
@@ -55,6 +56,7 @@
             background-image: url(../assets/svg/arrow-ios-back-fill.svg);
             background-size: contain;
             background-repeat: no-repeat;
+            cursor: pointer;
         }
         
 
@@ -86,6 +88,7 @@
             height: 33px;
             background: no-repeat contain;
             background-color: transparent;
+            cursor: pointer;
             // font-size: 24px;
             // border-radius: 50%;
             // padding: 0.1em 0.4em;
@@ -120,12 +123,14 @@
     }
     .volume-bar{
         width: 100%;
+        cursor: pointer;
     }
     .volume-icons{
         width: 100%;
         display: flex;
         justify-content: space-between;
         .volume-icon{
+          cursor: pointer;
             width: 2em;
             height: 2em;
             background-repeat: no-repeat;
@@ -210,6 +215,7 @@
         background-image: linear-gradient($main-color, $main-color);
         background-size: 70% 100%;
         background-repeat: no-repeat;
+        cursor: pointer;
     }
       
       /* Input Thumb */
@@ -220,7 +226,7 @@
         border-radius: 50%;
         background: white;
         opacity: 1;
-        cursor: ew-resize;
+        cursor: pointer;
         /* box-shadow: 0 0 2px 0 #555; */
         transition: background .3s ease-in-out;
       }
@@ -255,6 +261,7 @@
       background-image: url(../assets/svg/close.svg);
       background-size: contain;
       background-repeat: no-repeat;
+      cursor: pointer;
     }
     .settings-container{
       font-size: 24px;
@@ -327,8 +334,37 @@
       button{
           width: 35vw;
       }
-  }
     }
-    
+  } 
+
+}
+
+@media (min-width:768px) {
+  .settings-container{
+    align-items: flex-start;
+    padding: 3em;
+    .settings-section{
+      width: 40vw;
+      align-items: flex-start;
+    }
+    .settings-buttons{
+      width: 100%;
+      justify-content: flex-end;
+      button{
+        width: 20vw;
+      }
+  }
+  }
+  .amount-button.minus{
+    margin-right: 0.5em;
+  }
+  .settings-exit-sign{
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+    background-image: url(../assets/svg/close.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 
 }

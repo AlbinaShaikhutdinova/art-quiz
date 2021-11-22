@@ -12,6 +12,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .question-title{
+        padding-bottom: 1em;
+    }
 }
 
 .question-picture{  
@@ -27,7 +30,7 @@
 
 
 .answer-choice__container{
-    //max-width: 70vw;
+    padding-top: 2em;
     width: 100%;
     display: grid;
     gap: 1rem;
@@ -41,6 +44,7 @@
     border-radius: 10%;
     display: flex;
     justify-content: center;
+    cursor: pointer;
    .answer-button{
        font-size: 14px;
        font-weight: 400;
@@ -89,10 +93,7 @@
 
     color: black;
     animation-name: animatetop;
-    animation-duration: 0.4s;
-
-    
-
+    animation-duration: 0.4s; 
 }
 .modal-content.exit{
     margin-top: 30vh;
@@ -115,6 +116,7 @@
     }
 }
 .modal-content.answer{
+    margin-top: 20vh;
     .modal-img{
         position: relative;
         //width: 50vw;
@@ -236,3 +238,139 @@
     from {top: -70vh; opacity: 0}
     to {top: 0vh; opacity: 1}
   }
+
+
+@media (max-width: 768px) and(min-width:520px) {
+    .answer-item{
+       .answer-button{
+           font-size: 16px;
+           max-width: 40vw;
+       }
+       .image-answer{
+           border-radius: 10%;
+           max-width: 100%;
+           max-height: 30vh;
+           height: auto;
+       }
+    }
+ 
+    .modal-content{
+        width: 60vw;
+        font-size: 24px;
+    }
+    .modal-content.exit{
+        .nav-buttons{
+            .modal-exit-button{
+                width: 20vw;
+            }
+        }
+    }
+    .modal-content.answer{
+        width: 90vw;
+        .modal-img{
+            height: 40vh;
+        }
+        .modal-button{
+            width: 70%;
+        }
+        .modal-description{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2%;
+           
+        }
+        .modal-description-sign{
+            width: 1em;
+            height: 1em;
+            background-repeat: no-repeat;
+            background-size: contain;
+    
+        }
+    }
+    
+    .modal-content.result{  
+        .nav-buttons{
+            .modal-result__button{
+                width: 20vw;
+            }
+  
+        }
+    }
+
+}
+
+@media (min-width: 768px) {
+    .answer-choice__container{
+        padding-top: 2em;
+        width: 50vw;
+        display: grid;
+        gap: 1rem;
+        justify-content: space-between;
+    }
+    .question-page{
+        padding: 0 15vw;
+    }
+    .answer-item{
+       .answer-button{
+           font-size: 18px;
+           max-width: 40vw;
+           padding: 1em;
+       }
+       .image-answer{
+           border-radius: 10%;
+           max-width: 100%;
+           max-height: 30vh;
+           height: auto;
+       }
+    }
+ 
+    .modal-content{
+        width: 40vw;
+        font-size: 28px;
+    }
+    .modal-content.exit{
+        .nav-buttons{
+            width: 100%;
+            .modal-exit-button{
+                width: 40%;
+            }
+        }
+    }
+    .modal-content.answer{
+        margin-top: 5vh;
+        width: 60vw;
+        .modal-img{
+            height: 50vh;
+        }
+        .modal-button{
+            width: 50%;
+        }
+        .modal-description{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2%;
+           
+        }
+        .modal-description-sign{
+            width: 1em;
+            height: 1em;
+            background-repeat: no-repeat;
+            background-size: contain;
+    
+        }
+    }
+    
+    .modal-content.result{  
+        margin-top: 10vh;
+        .nav-buttons{
+            width: 100%;
+            .modal-result__button{
+                width: 40%;
+            }
+  
+        }
+    }
+
+}

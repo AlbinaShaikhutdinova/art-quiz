@@ -29,29 +29,11 @@ function app(){
         footer: footer,
         settings: settings,
         header: header};
-    // getInstancesArray(instances);
-    // //home.createHomePage();
-    home.show();   // createCategories();
-    // getHomeElement(home);
-    // getCategoriesElement(categories);
-    // getFooterElement(footer);
-    //getHeaderElement(header);
-    // getSettingsElement(settings);  
+        home.show();   
+
 }
 
-// function getInstancesArray(array){
-//     return array;
-// }
 
-// function getHomeElement(home){
-//     return home;
-// }
-// function getCategoriesElement(categories){
-//     return categories;
-// }
-// function getFooterElement(footer){
-//     return footer;
-// }
 function getSettingsInstance(){
     return settings;
 }
@@ -82,45 +64,6 @@ function getInstanceOfHTMLElement(element){
     }
 
 }
-// function getFooterPage(){
-//     return document.querySelector('footer');
-// }
-
-// function getHomePage(){
-//     return document.querySelector('.home');
-// }
-
-// function displayHome(prevPage){
-//     toggleVisibility(getHomePage());
-//     toggleVisibility(prevPage);
-//     getFooterPage().querySelector('.nav-footer').style.bottom ='-20vh';
-// }
-
-// function createCategories(){
-//     const categoriesPage = createCategory(12);
-//     const categories = categoriesPage.getElementsByClassName('category-item');
-//     for(let element of categories) {
-//         element.addEventListener('click', getNewQuiz.bind(this, element.id,categoriesPage))
-//     };
-
-// }
-
-// function displayCategories(id){
-//     console.log(id);
-//     toggleVisibility(getHomePage());
-//     toggleVisibility(getCategoriesPage());
-//     getFooterPage().querySelector('.nav-footer').style.bottom ='-10vh';
-//     chooseCategoryType(id);
-    
-// }
-
-// function getCategoriesPage(){ 
-//     return document.querySelector('.categories');
-// }
-
-// function getScorePage(){
-
-// }
 
 function changePage(id){
     switch(id){
@@ -129,14 +72,6 @@ function changePage(id){
        case "nav-score": getScorePage();
     }
 }
-// function toggleVisibility(element) {
-//     element.classList.toggle('hidden');
-// }
 
-// function getNewQuiz(id, prevPage){
-//     toggleVisibility(prevPage);
-//     const game =new Quiz();
-//     game.init(id);
-// }
 
 export  {app, changePage, getActiveElement, getInstanceOfHTMLElement,getScoreInstance, getHeaderElement, getSettingsInstance};

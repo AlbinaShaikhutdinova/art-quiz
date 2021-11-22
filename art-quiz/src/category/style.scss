@@ -26,6 +26,7 @@
     height: 11rem;
     max-width: 9rem;
     width: 100%;
+    cursor: pointer;
 
 }
 
@@ -53,7 +54,20 @@
 
 .modal.user-query{
     .modal-content.query{
-        margin-top: 40vh;
+        margin-top: 30vh;
+        .exit-sign-container{
+            display: flex;
+            justify-content: flex-end;
+            width: 90%;
+        }
+        .exit-sign-modal{
+            cursor: pointer;
+            width: 1em;
+            height: 1em;
+            background-image: url(../assets/svg/VectorExit.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
         .nav-buttons{
             display: flex;
             justify-content: center;
@@ -81,10 +95,42 @@
         line-height: 22px;
         margin-bottom: 0.2em;
     }
+    .modal-content.query{
+        width: 70vw;
+    }
 }
 
 @media (max-width: 768px) and (min-width:640px) {
 
+    .category-item{
+        height: 14rem;
+        max-width: 12rem;
+        width: 100%;
+    
+    }
+    .category-item-bg{
+        max-width: 12rem;
+        max-height: 12rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .item-title.sub-title{
+        font-size: 18px;
+        letter-spacing: -0.63px;
+        line-height: 22px;
+        margin-bottom: 0.2em;
+    }
+    .modal.user-query{
+        .modal-content.query{
+                
+            .nav-buttons{
+                .button{
+                    width: 15vw;
+                }
+            }
+        }
+    }
     .category-item{
         height: 14rem;
         max-width: 12rem;

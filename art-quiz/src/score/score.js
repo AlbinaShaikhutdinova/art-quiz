@@ -33,14 +33,14 @@ export default class Score{
         this.scorePage.addEventListener('click',this.checkForExit.bind(this))
 
 
+        this.roundHidden = this.scorePage.querySelector('.hidden-round-modal');
         this.paginationNext.addEventListener('click', this.getNextPage.bind(this));
         this.paginationPrev.addEventListener('click', this.getPrevPage.bind(this));
         this.scorePage.querySelector('.modal-exit-sign').addEventListener('click', this.hideModal.bind(this))
         this.scorePage.querySelector('.go-back-button').addEventListener('click', this.goToCategoriesPage.bind(this))
     }
     getNextPage(){
-        console.log(this.currentIndex);
-        console.log(this.currentIndex, this.categories.type)
+       
         if(this.currentIndex<this.cAmount+this.categories.type-1 && this.currentIndex>=this.categories.type)
         {
             this.currentIndex++
@@ -50,6 +50,7 @@ export default class Score{
     }
 
     cleanItemClasses(){
+        this.roundHidden.classList.add('hidden');
         let items =document.getElementsByClassName('score-item-bg');
         for(let el of items){
             el.classList.remove('not-visited');
@@ -70,6 +71,7 @@ export default class Score{
         }
     }
     goToCategoriesPage(){
+        this.roundHidden.classList.add('hidden');
         this.hide();
         this.categories.show();
     }
@@ -77,16 +79,17 @@ export default class Score{
         
         if(event.target===this.modal) 
         {
-            console.log(event.target, this.modal)
             this.hideModal();
         }
     }
 
     show(){
+        this.roundHidden.classList.add('hidden');
         this.scorePage.classList.remove('hidden');
     }
 
     hide(){
+        this.roundHidden.classList.add('hidden');
         this.scorePage.classList.add('hidden');
     }
 
@@ -107,15 +110,6 @@ export default class Score{
         this.handleQuizItems(index);
         
     }
-    // handlePagination(index){
-    //     const items = document.getElementsByClassName('pagination-item');     
-    //     for(let el of items)
-    //     {
-    //         el.id = `page${this.categories.type++}`;
-    //         if(el.id===index)
-    //             el.classList.add('active-item');
-    //     }
-    // }
 
     getNewPageQuizItems(item){
         this.handleQuizItems(item.id);
@@ -144,6 +138,7 @@ export default class Score{
                 items[i].querySelector('.score-item-bg').style.background="";
                 items[i].querySelector('.score-item-bg').classList.add('round-hidden');
             }
+            this.roundHidden.classList.remove('hidden');
         }
 
     }

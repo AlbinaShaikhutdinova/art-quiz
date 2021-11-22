@@ -3,13 +3,18 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+::-webkit-scrollbar {
+    display: none;
+}
 body{
     width: 100vw;
     height: 100vh;
     background-color: $background-color;
     font-family: Gilroy;
-  
+}
+a{
+    color: $elements-color;
+    text-decoration: none;
 }
 main{
     //position: relative;
@@ -52,4 +57,12 @@ button:active{
         font-size: 24px;
     }
 
+}
+
+@media (min-width:768px) {
+    button{
+        
+        font-size: 24px;
+        padding: 0.6em;
+    }
 }

@@ -17,7 +17,6 @@ class Round{
         this.timer = new Timer();
         this.question = new Question(this, this.timer); 
         
-        
     }
     init(index,questionsAmount=10, sameCategory=false){
         this.settings = getSettingsInstance();
@@ -25,7 +24,7 @@ class Round{
         this.answers = [];
         this.qIndex =0;
         this.categoriesAmount=12;
-        console.log(index);
+    
         this.index= index.toString().match(/\d+/g);
         this.qAmount = questionsAmount;
         this.currentQuestionIndex=this.index*this.qAmount;

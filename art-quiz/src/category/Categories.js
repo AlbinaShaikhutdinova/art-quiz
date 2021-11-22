@@ -8,11 +8,11 @@ import {getScoreInstance} from '../app/app';
 
 export default class CategoriesPage{
     constructor(settings){
-        const amountCategories=12;
+        this.amountCategories=12;
         this.categoriesElement = htmlToElement(categories);
         const main = document.querySelector('main');
         main.append(this.categoriesElement);
-        for(let i=0;i<amountCategories;i++)
+        for(let i=0;i<this.amountCategories;i++)
         {
             this.buildHtml();
         }
@@ -21,6 +21,7 @@ export default class CategoriesPage{
             element.addEventListener('click', this.handleCategoryQuery.bind(this, element))
         };
         //this.queryElement=items[0];
+        this.categoriesElement.querySelector('.exit-sign-modal').addEventListener('click', this.hideModalQuestion.bind(this));
         document.querySelector('.button.play-again').addEventListener('click', this.getNewQuiz.bind(this));
         document.querySelector('.button.show-results').addEventListener('click', this.getCategoryScore.bind(this))
         this.round = new Round(this.round);
@@ -30,6 +31,7 @@ export default class CategoriesPage{
     getCategoryScore(){
         this.hideModalQuestion();
         this.hide();
+        document.querySelector('.nav-footer').style.bottom ='-10vh';
         this.score = getScoreInstance();
         this.score.fillScorePage(this,this.queryElement.id);
         this.score.show();
@@ -77,8 +79,8 @@ export default class CategoriesPage{
 
     createCategories(type){
         const amountQ = 10;
-        const amountCategories = type ==='artist'? 12 : 24;
-        let i = type ==='artist'? 0 : 12;
+        const amountCategories = type ==='artist'? this.amountCategories : this.amountCategories*2;
+        let i = type ==='artist'? 0 : this.amountCategories;
         this.type=i;
         let a=0;
         const items = document.getElementsByClassName('category-item')

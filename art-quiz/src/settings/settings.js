@@ -80,12 +80,12 @@ export default class Settings{
     }
 
     show(){
-        document.querySelector('.settings').classList.remove('hidden');
-        document.querySelector('.settings').animationName="animateTotop";
+        //document.querySelector('.settings').classList.remove('hidden');
+        document.querySelector('.settings').style.top='0vh';
     }
     hide(){
-        document.querySelector('.settings').classList.add('hidden');
-        document.querySelector('.settings').animationName="animatetop";
+        //document.querySelector('.settings').classList.add('hidden');
+        document.querySelector('.settings').style.top='-100vh'
     }
 
     playAnswerSignal(correct){

@@ -2,7 +2,7 @@ import indexQuestion from './indexQuestion.html';
 import pic from '../utils/importPics';
 import images from '../assets/images';
 import htmlToElement from '../utils/htmlToElement';
-import {getSettingsInstance } from '../app/app';
+import {getSettingsInstance,getHeaderElement } from '../app/app';
 
 
 
@@ -27,8 +27,6 @@ export default class Question{
         document.querySelector('.modal-result__button.modal-home').addEventListener('click', this.getHomePage.bind(this));
         document.querySelector('.modal-result__button.next').addEventListener('click', this.getNextRound.bind(this));
         this.questionPage.querySelector('.modal-button').addEventListener('click', this.getNextQuestion.bind(this) )
-        
-       
         this.data = images;   
     }
 
@@ -53,16 +51,14 @@ export default class Question{
 
     init(qIndex){
         this.settings = getSettingsInstance();
-        console.log(this.timer);  
         this.buildTypeDependentFeatures(this.round.index);
         this.choices = [qIndex];
         this.populateChoices();
         this.answer = qIndex;
-        console.log(this.choices);
         this.fillQuestionTemplate();
     }
     isCorrect(guess){
-        console.log(guess, this.answer);
+       
         return this.answer == guess;
     }
     getRandom(min, max) {
@@ -88,8 +84,9 @@ export default class Question{
     }
 
     populateChoices(){
-        let flag=false;
+        
         while(this.choices.length<4){
+            let flag=false;
             let rand = this.getRandom(0,240)
             for(let el of this.choices)
             {
@@ -141,7 +138,7 @@ export default class Question{
         this.getAnswerSignal(this.isCorrect(el.id));
         this.round.saveAnswer(this.isCorrect(el.id));
         const answerElement = document.getElementById(el.id);
-        console.log(this,this.answer,answerElement)
+       
         if(this.round.index<12)
         {   const domElement = answerElement.querySelector('.answer-button');
             this.putAnswerSign(answerElement,domElement,'right-answer-btn', 'wrong-answer-btn');
@@ -154,11 +151,10 @@ export default class Question{
     }
     getAnswerSignal(correct){
         this.settings.playAnswerSignal(correct);
-
     }
     showModalPicture(el){
         
-        document.querySelector('.modal-content.answer').style.marginTop='20vh';
+        //document.querySelector('.modal-content.answer').style.marginTop='20vh';
         document.querySelector('.modal-answer').classList.remove('hidden');     
         this.questionPage.querySelector('.modal-img-image').src =pic[this.answer];
         this.putAnswerSign(el,document.querySelector('.modal-img-sign'),'right-answer-sign', 'wrong-answer-sign')
@@ -225,6 +221,7 @@ export default class Question{
     getHomePage(){
         this.cleanClosingModal();
         this.hideQuestionPage();
+        getHeaderElement().hideLogo();
         document.querySelector('.home').classList.remove('hidden')
     }
 

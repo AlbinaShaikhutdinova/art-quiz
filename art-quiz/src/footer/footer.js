@@ -16,7 +16,6 @@ export default class Footer{
         {
             item.addEventListener('click', this.changePage.bind(this, item));
         }
-        //return footerElement;
     }
     changePage(item){
         switch(item.id){
@@ -42,6 +41,7 @@ export default class Footer{
     }
     goScore(){
         this.categories.hide();
+        document.querySelector('.nav-footer').style.bottom ='-10vh';
         this.score.fillScorePage(this.categories, this.categories.type)
         this.score.show();
     }
