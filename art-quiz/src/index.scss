@@ -1,68 +1,65 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
-body{
-    width: 100vw;
-    height: 100vh;
-    background-color: $background-color;
-    font-family: Gilroy;
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: $background-color;
+  font-family: Gilroy;
 }
-a{
-    color: $elements-color;
-    text-decoration: none;
+a {
+  color: $elements-color;
+  text-decoration: none;
 }
-main{
-    //position: relative;
-    width: 100vw;
-    height: 80vh;
+main {
+  width: 100vw;
+  height: 80vh;
 }
-button{
-    border: 1px solid $elements-color;
-    border-radius: 30px;
-    padding: 10px;
-    color: $elements-color;
-    background-color: transparent;
-}
-
-button:hover{
-    background-color: $elements-color;
-    color: black;
-    cursor: pointer;
+button {
+  border: 1px solid $elements-color;
+  border-radius: 30px;
+  padding: 10px;
+  color: $elements-color;
+  background-color: transparent;
 }
 
-button:active{
-    background-color: $main-color;
-    color: black;
+button:hover {
+  background-color: $elements-color;
+  color: black;
+  cursor: pointer;
 }
 
-.hidden{
-    display: none;
+button:active {
+  background-color: $main-color;
+  color: black;
 }
 
-.not-visited{
-    filter: grayscale(100%);
+.hidden {
+  display: none;
 }
 
-.no-visibility{
-    visibility: hidden;
+.not-visited {
+  filter: grayscale(100%);
 }
 
-@media (max-width: 768px) and (min-width:520px) {
-    button{
-        font-size: 24px;
-    }
-
+.no-visibility {
+  visibility: hidden;
 }
 
-@media (min-width:768px) {
-    button{
-        
-        font-size: 24px;
-        padding: 0.6em;
-    }
+@media (max-width: 768px) and (min-width: 520px) {
+  button {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  button {
+    font-size: 24px;
+    padding: 0.6em;
+  }
 }

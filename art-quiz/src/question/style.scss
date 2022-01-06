@@ -1,376 +1,347 @@
-.question{
+.question {
+  width: 100%;
+  height: 100%;
+}
+
+.question-page {
+  width: 100%;
+  height: 100%;
+  padding: 0 5vw;
+  color: $elements-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .question-title {
+    padding-bottom: 1em;
+  }
+}
+
+.question-picture {
+  .question-image {
+    border-radius: 30px;
+    max-width: 90vw;
+    width: 100%;
+    max-height: 50vh;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.answer-choice__container {
+  padding-top: 2em;
+  width: 100%;
+  display: grid;
+  gap: 1rem;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.answer-item {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  .answer-button {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
     width: 100%;
     height: 100%;
-}
-
-.question-page{
-    width: 100%;
-    height: 100%;
-    padding: 0 5vw;
-    color: $elements-color;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .question-title{
-        padding-bottom: 1em;
-    }
-}
-
-.question-picture{  
-    .question-image{
-        border-radius: 30px;
-        max-width: 90vw;
-        width: 100%;
-        max-height: 50vh;
-        height: auto;
-        object-fit: contain;
-    }
-}
-
-
-.answer-choice__container{
-    padding-top: 2em;
-    width: 100%;
-    display: grid;
-    gap: 1rem;
-    justify-content: space-between;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-}
-.answer-item{
-    width: 100%;
-    height: 100%;
+  }
+  .image-answer {
     border-radius: 10%;
+    max-width: 100%;
+    max-height: 30vh;
+    height: auto;
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  border-radius: 10px;
+  padding: 2em 1em;
+  height: fit-content;
+  background-color: $elements-color;
+  position: absolute;
+  color: black;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+.modal-content.exit {
+  margin-top: 30vh;
+  .nav-buttons {
     display: flex;
     justify-content: center;
-    cursor: pointer;
-   .answer-button{
-       font-size: 14px;
-       font-weight: 400;
-       line-height: 18px;
-       width: 100%;
-       height: 100%;
-   }
-   .image-answer{
-       border-radius: 10%;
-       max-width: 100%;
-       max-height: 30vh;
-       height: auto;
-
-   }
-}
-
-//////////////////////////////
-
-.modal{
-    display: flex; 
-    justify-content: center;
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.modal-content{
-    width: 80vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
-    border-radius: 10px;
-    padding: 2em 1em;
-    //width: fit-content;
-    height: fit-content;
-    background-color: $elements-color;
-    position: absolute;
-
-    color: black;
-    animation-name: animatetop;
-    animation-duration: 0.4s; 
-}
-.modal-content.exit{
-    margin-top: 30vh;
-    .nav-buttons{
-        display: flex;
-        justify-content: center;
-        gap: 3%;
-        .modal-exit-button{
-            color: black;
-            width: 30vw;
-        }
-        .modal-exit-button.cancel-exit{
-            background-color: $elements-color;
-            border-color: black;
-        }
-        .modal-exit-button.exit{
-            background-color: $main-color;
-            
-        }
+    gap: 3%;
+    .modal-exit-button {
+      color: black;
+      width: 30vw;
     }
-}
-.modal-content.answer{
-    margin-top: 20vh;
-    .modal-img{
-        position: relative;
-        //width: 50vw;
-        height: 30vh;   
-        .modal-img-image{
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            object-fit: contain;
-        }
-        .modal-img-sign{
-            position: absolute;
-            //content: "";
-            bottom: 3%;
-            left: 3%;
-            width: 2em;
-            height: 2em;
-            //background: url(../assets/svg/right-answer.svg);
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
+    .modal-exit-button.cancel-exit {
+      background-color: $elements-color;
+      border-color: black;
     }
-    
-    .modal-button{
-        width: 90%;
-        color: black;
-        background-color: $main-color;
+    .modal-exit-button.exit {
+      background-color: $main-color;
     }
-    .modal-description{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 2%;
-       
+  }
+}
+.modal-content.answer {
+  margin-top: 20vh;
+  .modal-img {
+    position: relative;
+    height: 30vh;
+    .modal-img-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: contain;
     }
-    .modal-description-sign{
-        width: 1em;
-        height: 1em;
-        //background: url(../assets/svg/right-answer.svg);
-        background-repeat: no-repeat;
-        background-size: contain;
-
+    .modal-img-sign {
+      position: absolute;
+      bottom: 3%;
+      left: 3%;
+      width: 2em;
+      height: 2em;
+      background-repeat: no-repeat;
+      background-size: contain;
     }
-}
-
-.modal-content.result{
-    margin-top: 20vh;
-    .modal-result__img{
-        
-        //background-image: url(../assets/svg/VectorGoodsvg.svg);
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-    .modal-result__result{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-buttons{
-        display: flex;
-        justify-content: center;
-        gap: 3%;
-        .modal-result__button{
-            color: black;
-            width: 30vw;
-        }
-        .modal-result__button.modal-home{
-            background-color: $elements-color;
-            border-color: black;
-        }
-        .modal-result__button.next{
-            background-color: $main-color;
-            
-        }
-    }
-}
-
-.great-result{
-    width: 25vh;
-    height: 10vh;
-    background-image: url(../assets/svg/greatResult.svg);
-}
-
-.good-result{
-    width: 25vh;
-    height: 25vh;
-    background-image: url(../assets/svg/VectorGoodsvg.svg);
-}
-
-.right-answer-sign{
-    background: url(../assets/svg/right-answer.svg);
-}
-
-.wrong-answer-sign{
-    background: url(../assets/svg/wrong-answer.svg);
-}
-
-.right-answer-btn{
-    background-color: $correct-answer;
-}
-
-.wrong-answer-btn{
-    background-color: $wrong-answer;
-}
-
-.wrap-right-image{
-    -webkit-filter: sepia(100%) hue-rotate(90deg) saturate(300%);
-    filter: sepia(100%) hue-rotate(90deg) saturate(300%);
-}
-
-.wrap-wrong-image{
-    -webkit-filter: invert(40%) grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(2);
-      filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
-}
-
-@keyframes animatetop {
-    from {top: -70vh; opacity: 0}
-    to {top: 0vh; opacity: 1}
   }
 
+  .modal-button {
+    width: 90%;
+    color: black;
+    background-color: $main-color;
+  }
+  .modal-description {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+  }
+  .modal-description-sign {
+    width: 1em;
+    height: 1em;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.modal-content.result {
+  margin-top: 20vh;
+  .modal-result__img {
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .modal-result__result {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3%;
+    .modal-result__button {
+      color: black;
+      width: 30vw;
+    }
+    .modal-result__button.modal-home {
+      background-color: $elements-color;
+      border-color: black;
+    }
+    .modal-result__button.next {
+      background-color: $main-color;
+    }
+  }
+}
+.great-result {
+  width: 25vh;
+  height: 10vh;
+  background-image: url(../assets/svg/greatResult.svg);
+}
+.good-result {
+  width: 25vh;
+  height: 25vh;
+  background-image: url(../assets/svg/VectorGoodsvg.svg);
+}
+.right-answer-sign {
+  background: url(../assets/svg/right-answer.svg);
+}
+.wrong-answer-sign {
+  background: url(../assets/svg/wrong-answer.svg);
+}
+.right-answer-btn {
+  background-color: $correct-answer;
+}
+.wrong-answer-btn {
+  background-color: $wrong-answer;
+}
+.wrap-right-image {
+  -webkit-filter: sepia(100%) hue-rotate(90deg) saturate(300%);
+  filter: sepia(100%) hue-rotate(90deg) saturate(300%);
+}
+.wrap-wrong-image {
+  -webkit-filter: invert(40%) grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(2);
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
+}
+@keyframes animatetop {
+  from {
+    top: -70vh;
+    opacity: 0;
+  }
+  to {
+    top: 0vh;
+    opacity: 1;
+  }
+}
 
 @media (max-width: 768px) and(min-width:520px) {
-    .answer-item{
-       .answer-button{
-           font-size: 16px;
-           max-width: 40vw;
-       }
-       .image-answer{
-           border-radius: 10%;
-           max-width: 100%;
-           max-height: 30vh;
-           height: auto;
-       }
+  .answer-item {
+    .answer-button {
+      font-size: 16px;
+      max-width: 40vw;
     }
- 
-    .modal-content{
-        width: 60vw;
-        font-size: 24px;
+    .image-answer {
+      border-radius: 10%;
+      max-width: 100%;
+      max-height: 30vh;
+      height: auto;
     }
-    .modal-content.exit{
-        .nav-buttons{
-            .modal-exit-button{
-                width: 20vw;
-            }
-        }
-    }
-    .modal-content.answer{
-        width: 90vw;
-        .modal-img{
-            height: 40vh;
-        }
-        .modal-button{
-            width: 70%;
-        }
-        .modal-description{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 2%;
-           
-        }
-        .modal-description-sign{
-            width: 1em;
-            height: 1em;
-            background-repeat: no-repeat;
-            background-size: contain;
-    
-        }
-    }
-    
-    .modal-content.result{  
-        .nav-buttons{
-            .modal-result__button{
-                width: 20vw;
-            }
-  
-        }
-    }
+  }
 
+  .modal-content {
+    width: 60vw;
+    font-size: 24px;
+  }
+  .modal-content.exit {
+    .nav-buttons {
+      .modal-exit-button {
+        width: 20vw;
+      }
+    }
+  }
+  .modal-content.answer {
+    width: 90vw;
+    .modal-img {
+      height: 40vh;
+    }
+    .modal-button {
+      width: 70%;
+    }
+    .modal-description {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 2%;
+    }
+    .modal-description-sign {
+      width: 1em;
+      height: 1em;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .modal-content.result {
+    .nav-buttons {
+      .modal-result__button {
+        width: 20vw;
+      }
+    }
+  }
 }
 
 @media (min-width: 768px) {
-    .answer-choice__container{
-        padding-top: 2em;
-        width: 50vw;
-        display: grid;
-        gap: 1rem;
-        justify-content: space-between;
+  .answer-choice__container {
+    padding-top: 2em;
+    width: 50vw;
+    display: grid;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  .question-page {
+    padding: 0 15vw;
+  }
+  .answer-item {
+    .answer-button {
+      font-size: 18px;
+      max-width: 40vw;
+      padding: 1em;
     }
-    .question-page{
-        padding: 0 15vw;
+    .image-answer {
+      border-radius: 10%;
+      max-width: 100%;
+      max-height: 30vh;
+      height: auto;
     }
-    .answer-item{
-       .answer-button{
-           font-size: 18px;
-           max-width: 40vw;
-           padding: 1em;
-       }
-       .image-answer{
-           border-radius: 10%;
-           max-width: 100%;
-           max-height: 30vh;
-           height: auto;
-       }
-    }
- 
-    .modal-content{
-        width: 40vw;
-        font-size: 28px;
-    }
-    .modal-content.exit{
-        .nav-buttons{
-            width: 100%;
-            .modal-exit-button{
-                width: 40%;
-            }
-        }
-    }
-    .modal-content.answer{
-        margin-top: 5vh;
-        width: 60vw;
-        .modal-img{
-            height: 50vh;
-        }
-        .modal-button{
-            width: 50%;
-        }
-        .modal-description{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 2%;
-           
-        }
-        .modal-description-sign{
-            width: 1em;
-            height: 1em;
-            background-repeat: no-repeat;
-            background-size: contain;
-    
-        }
-    }
-    
-    .modal-content.result{  
-        margin-top: 10vh;
-        .nav-buttons{
-            width: 100%;
-            .modal-result__button{
-                width: 40%;
-            }
-  
-        }
-    }
+  }
 
+  .modal-content {
+    width: 40vw;
+    font-size: 28px;
+  }
+  .modal-content.exit {
+    .nav-buttons {
+      width: 100%;
+      .modal-exit-button {
+        width: 40%;
+      }
+    }
+  }
+  .modal-content.answer {
+    margin-top: 5vh;
+    width: 60vw;
+    .modal-img {
+      height: 50vh;
+    }
+    .modal-button {
+      width: 50%;
+    }
+    .modal-description {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 2%;
+    }
+    .modal-description-sign {
+      width: 1em;
+      height: 1em;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .modal-content.result {
+    margin-top: 10vh;
+    .nav-buttons {
+      width: 100%;
+      .modal-result__button {
+        width: 40%;
+      }
+    }
+  }
 }

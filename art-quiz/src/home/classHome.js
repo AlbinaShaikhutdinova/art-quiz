@@ -1,58 +1,55 @@
 import importImages from '../utils/importImages';
 import htmlToElement from '../utils/htmlToElement';
 import homePage from './index.html';
-import Categories from '../category/Categories';
+import { AMOUNT_OF_QUESTIONS } from '../utils/constants';
 import { getHeaderElement } from '../app/app';
 
 import './style.scss';
-class Home{
-    constructor(categories){
-        // this.homeElement  = htmlToElement(homePage);
-        // const main = document.querySelector('main');
-        // main.append(this.homeElement);
-        // try{
-        //     document.querySelector('home').classList.remove(hidden);
-        // }
-        // catch(e){
-        // }
-        // getBackground();
-        // this.buttons = document.getElementsByClassName('home-page__button');
-        this.homeElement = htmlToElement(homePage);
-        const main = document.querySelector('main');
-        main.append(this.homeElement);
-        getBackground();        
-        this.buttons = document.getElementsByClassName('home-page__button');
-        for(let button of this.buttons) {
-            button.addEventListener('click', this.displayCategories.bind(this,button.id));
-        };     
-        this.catPage=categories;
-        //this.catPage.createPage();
-        return this;
-    }
 
-  
-    displayCategories(id){    
-        this.hide();
-        this.catPage.createCategories(id);
-        this.catPage.show();
-        getHeaderElement().showLogo();
-    }
-    show(){
-        this.active=true;
-        this.homeElement.classList.remove('hidden');
-    }
-    hide(){
-        this.active=false;
-        this.homeElement.classList.add('hidden');
-    }
+const CLASSES = {
+  HIDDEN: 'hidden',
+  MAIN: 'main',
+  HOME_PAGE_BUTTON: 'home-page__button',
+  HOME: 'home'
+}
+
+class Home {
+  constructor(categories) {
+    this.homeElement = htmlToElement(homePage);
+    const main = document.querySelector(CLASSES.MAIN);
+    main.append(this.homeElement);
+    getBackground();
+    this.buttons = document.querySelectorAll(`.${CLASSES.HOME_PAGE_BUTTON}`);
+    for (let button of this.buttons) {
+      button.addEventListener('click', this.displayCategories.bind(this, button.id));
+    };
+    this.categoriesPage = categories;
+    return this;
+  }
+
+
+  displayCategories(id) {
+    this.hide();
+    this.categoriesPage.createCategories(id);
+    this.categoriesPage.show();
+    getHeaderElement().showLogo();
+  }
+  show() {
+    this.active = true;
+    this.homeElement.classList.remove(CLASSES.HIDDEN);
+  }
+  hide() {
+    this.active = false;
+    this.homeElement.classList.add(CLASSES.HIDDEN);
+  }
 
 }
-function getBackground(){
-    const home = document.querySelector('.home');
-    const images = importImages();
-    home.style.backgroundImage = "url('"+images[getRandom(240)]+"')";
+function getBackground() {
+  const home = document.querySelector(`.${CLASSES.HOME}`);
+  const images = importImages();
+  home.style.backgroundImage = `url('${images[getRandom(AMOUNT_OF_QUESTIONS)]}')`;
 }
-function getRandom(max){
-    return Math.floor(Math.random() * max);
+function getRandom(max) {
+  return Math.floor(Math.random() * max);
 }
 export default Home;

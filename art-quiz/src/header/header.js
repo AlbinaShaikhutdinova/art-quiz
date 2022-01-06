@@ -1,47 +1,58 @@
 import header from './header.html';
 import htmlToElement from '../utils/htmlToElement';
-import {getSettingsInstance} from '../app/app';
 import './style.scss';
 
-export default class Header{
-    constructor(settings, footer){
+const CLASSES = {
+    HEADER: 'header',
+    NAV_LINK: 'nav-link',
+    SETTINGS_ICON: 'settings-icon',
+    HIDDEN: 'hidden',
+    HEADER_LOGO: 'header-logo',
+    NAV_HEADER: 'nav-header',
+    NO_VISIBILITY: 'no-visibility',
+    DEFAULT_HEADER: 'default-header',
+    GAME_HEADER: 'game-header',
+    TIMER_REGIM: 'timer-regim',
+}
+
+export default class Header {
+    constructor(settings, footer) {
         this.headerElement = htmlToElement(header);
-        document.querySelector('header').append(this.headerElement);
-        this.settings=settings;
+        this.header = document.querySelector(CLASSES.HEADER);
+        this.header.append(this.headerElement);
+        this.settings = settings;
         this.footer = footer;
-        const links = this.headerElement.getElementsByClassName('nav-link');
-        for(let item of links)
-        {
+        const links = this.headerElement.querySelectorAll(`.${CLASSES.NAV_LINK}`);
+        for (let item of links) {
             item.addEventListener('click', this.footer.changePage.bind(this.footer, item));
         }
-        //this.headerElement.querySelector('.end-round-sign').addEventListener('click', )
-        this.settings.addListenerForHeader(this.headerElement.querySelector('.settings-icon'));
+        this.settings.addListenerForHeader(this.headerElement.querySelector(`.${CLASSES.SETTINGS_ICON}`));
     }
-    hide(){
-        document.querySelector('header').classList.add('hidden');
+    hide() {
+        this.header.classList.add(CLASSES.HIDDEN);
     }
-    show(){
-        document.querySelector('header').classList.remove('hidden');
+    show() {
+        this.header.classList.remove(CLASSES.HIDDEN);
     }
-    showLogo(){
-        this.headerElement.querySelector('.header-logo').classList.remove('no-visibility');
-        this.headerElement.querySelector('.nav-header').classList.remove('no-visibility');
+    showLogo() {
+        this.headerElement.querySelector(`.${CLASSES.HEADER_LOGO}`).classList.remove(CLASSES.NO_VISIBILITY);
+        this.headerElement.querySelector(`.${CLASSES.NAV_HEADER}`).classList.remove(CLASSES.NO_VISIBILITY);
     }
-    hideLogo(){
-        this.headerElement.querySelector('.header-logo').classList.add('no-visibility');
-        this.headerElement.querySelector('.nav-header').classList.add('no-visibility');
+    hideLogo() {
+        this.headerElement.querySelector(`.${CLASSES.HEADER_LOGO}`).classList.add(CLASSES.NO_VISIBILITY);
+        this.headerElement.querySelector(`.${CLASSES.NAV_HEADER}`).classList.add(CLASSES.NO_VISIBILITY);
     }
-    showGameMode(){
-        this.headerElement.querySelector('.default-header').classList.add('hidden');
-        this.headerElement.querySelector('.game-header').classList.remove('hidden');
-        if(!this.settings.appSettings.timer){
-            document.querySelector('.timer-regim').classList.add('no-visibility');
+    showGameMode() {
+        this.headerElement.querySelector(`.${CLASSES.DEFAULT_HEADER}`).classList.add(CLASSES.HIDDEN);
+        this.headerElement.querySelector(`.${CLASSES.GAME_HEADER}`).classList.remove(CLASSES.HIDDEN);
+        if (!this.settings.appSettings.timer) {
+            document.querySelector(`.${CLASSES.TIMER_REGIM}`).classList.add(CLASSES.NO_VISIBILITY);
         }
     }
-    showDefaultMode(){
-        this.headerElement.querySelector('.default-header').classList.remove('hidden');
-        this.headerElement.querySelector('.game-header').classList.add('hidden');
-        document.querySelector('.timer-regim').classList.remove('no-visibility');
+    showDefaultMode() {
+        this.headerElement.querySelector(`.${CLASSES.DEFAULT_HEADER}`).classList.remove(CLASSES.HIDDEN);
+        this.headerElement.querySelector(`.${CLASSES.GAME_HEADER}`).classList.add(CLASSES.HIDDEN);
+        document.querySelector(`.${CLASSES.TIMER_REGIM}`).classList.remove(CLASSES.NO_VISIBILITY);
     }
 
 }

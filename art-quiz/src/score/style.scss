@@ -1,249 +1,222 @@
-.score{
-    width: 100%;
-    height: 100%;
-    
+.score {
+  width: 100%;
+  height: 100%;
 }
 
-.score-container{
-    padding: 1em 2em;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-between;
-    height: 100%;
-    //position: relative;
-    .score-header{
-        display: flex;
-        align-items: center;
-        .go-back-button{
-            width: 2em;
-            height: 2em;
-            background-image: url(../assets/svg/arrow-ios-back-fill.svg);
-            background-size: contain;
-            background-repeat: no-repeat;
-            cursor: pointer;
-        }
-        .page-title{
-            color: white;
-            width: 90%;
-            display: flex;
-            justify-self: center;
-            align-self: center;
-        }
-    }
-    
-
-
-    .score-items-container{
-        position: relative;
-        overflow-y: scroll;
-        padding: 1em 0;
-        width: 100%;
-        height: 90%;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-evenly;
-        align-items: center;
-        gap: 2%;
-        //gap: 3%;
-        .score-item{
-            height: 11rem;
-            max-width: 9rem;
-            width: 100%;
-        cursor: pointer;
-        }
-    }
- 
-    .score-item-bg{
-        max-width: 9rem;
-        width: 100%;
-        max-height: 9rem;
-        height: 100%;
-        //background-image: url('../assets/img/100.jpg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        border-radius: 10px;
-    
-    } 
-}
-
-.round-hidden{
-    width: 16px;
-    height: 16px;
-    background-color: gray;
-    background-image: url(../assets/svg/icons8-lock.svg);
-    background-size: contain;
-}
-
-.hidden-round-modal{
-    display: flex; 
-    justify-content: center;
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 10vh;
-    width: 100%; /* Full width */
-    height: 80vh; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    .modal-content{
-        margin-top: 20vh;
-    }
-}
-
-.score-pagination{
-    // position: absolute;
-    // bottom: 0;
-    padding-top: 1em;
+.score-container {
+  padding: 1em 2em;
+  height: 100%;
+  .score-header {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 3em;
+    .go-back-button {
+      width: 2em;
+      height: 2em;
+      background-image: url(../assets/svg/arrow-ios-back-fill.svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+    .page-title {
+      color: white;
+      width: 90%;
+      display: flex;
+      justify-self: center;
+      align-self: center;
+    }
+  }
+
+  .score-items-container {
+    position: relative;
+    overflow-y: scroll;
+    padding: 1em 0;
     width: 100%;
-    height: 2rem;
-    // float: bottom;
-    .pagination-item{
+    height: 90%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2%;
+    .score-item {
+      height: 11rem;
+      max-width: 9rem;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+
+  .score-item-bg {
+    max-width: 9rem;
+    width: 100%;
+    max-height: 9rem;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+  }
+}
+
+.round-hidden {
+  width: 16px;
+  height: 16px;
+  background-color: gray;
+  background-image: url(../assets/svg/icons8-lock.svg);
+  background-size: contain;
+}
+
+.hidden-round-modal {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 10vh;
+  width: 100%;
+  height: 80vh;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  .modal-content {
+    margin-top: 20vh;
+  }
+}
+
+.score-pagination {
+  padding-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+  width: 100%;
+  height: 2rem;
+  .pagination-item {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(100%);
+  }
+  .pagination-item.prev-arrow {
+    background-image: url(../assets/svg/icons8-left-24.png);
+  }
+  .pagination-item.next-arrow {
+    background-image: url(../assets/svg/icons8-right-24.png);
+  }
+  .pagination-item:hover {
+    background-color: $main-color;
+    filter: invert(0);
+  }
+}
+.modal.modal-score {
+  .modal-content.score-content {
+    justify-content: space-evenly;
+    padding-top: 1em;
+    margin-top: 10vh;
+    height: 70vh;
+    width: 90vw;
+    .modal-picture {
+      width: 40vh;
+      height: 40vh;
+      .modal-image {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+      }
+    }
+    .modal-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-exit {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      justify-self: flex-start;
+      .modal-exit-sign {
         cursor: pointer;
-        position: relative;
-        z-index: 2;
-        display: block;
         width: 1em;
         height: 1em;
-        border-radius: 50%;
+        background-image: url(../assets/svg/VectorExit.svg);
         background-size: contain;
         background-repeat: no-repeat;
-        //background: $elements-color 1em 1em;
-        //color: $elements-color;
-        filter: invert(100%);
+      }
     }
-    .pagination-item.prev-arrow{
-       
-        background-image: url(../assets/svg/icons8-left-24.png);     
-    }
-    .pagination-item.next-arrow{
-        background-image: url(../assets/svg/icons8-right-24.png);
-    }
-    .pagination-item:hover{
-        background-color: $main-color;
-        filter: invert(0);
-    }
-}
-.modal.modal-score{
-    .modal-content.score-content{
-        justify-content: space-evenly;
-        padding-top: 1em;
-        margin-top: 10vh;
-        height: 70vh;
-        width: 90vw;
-        .modal-picture{
-            width: 40vh;
-            height: 40vh;
-            .modal-image{
-                object-fit: contain;
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;
-            }
-        }
-        .modal-text{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-exit{
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            justify-self: flex-start;
-            .modal-exit-sign{
-                cursor: pointer;
-                width: 1em;
-                height: 1em;
-                background-image: url(../assets/svg/VectorExit.svg);
-                background-size: contain ;
-                background-repeat: no-repeat;
-
-            }
-        }
-
-        
-    }
-    
+  }
 }
 
-
-@media (min-width:640px) {
-    .score-pagination{
-        .pagination-item{
-
-            width: 2em;
-            height: 2em;
- 
-        }
+@media (min-width: 640px) {
+  .score-pagination {
+    .pagination-item {
+      width: 2em;
+      height: 2em;
     }
-.score-container{
-    .score-items-container{
-        .score-item{
-            height: 14rem;
-            max-width: 12rem;
-            width: 100%;
-        
-        }
-    }
-    .score-item-bg{
+  }
+  .score-container {
+    .score-items-container {
+      .score-item {
+        height: 14rem;
         max-width: 12rem;
-        max-height: 12rem;
+        width: 100%;
+      }
     }
-}
+    .score-item-bg {
+      max-width: 12rem;
+      max-height: 12rem;
+    }
+  }
 }
 
-@media (min-width:768px) {
-    .score-container{
-        .score-items-container{
-            .score-item{
-                height: 14rem;
-                max-width: 12rem;
-                width: 100%;
-            
-            }
-        }
-        .score-item-bg{
-            max-width: 12rem;
-            max-height: 12rem;
-        }
+@media (min-width: 768px) {
+  .score-container {
+    .score-items-container {
+      .score-item {
+        height: 14rem;
+        max-width: 12rem;
+        width: 100%;
+      }
     }
-   
-    
-.modal.modal-score{
-    .modal-content.score-content{
-        justify-content: space-evenly;
-        padding-top: 1em;
-        margin-top: 5vh;
-        height: 80vh;
-        width: 60vw;
-        .modal-picture{
-            width: 50vh;
-            height: 50vh;
-            .modal-image{
-                object-fit: contain;
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;
-            }
-        }
-        .modal-exit{
-            padding-top: 0.2em;
-            .modal-exit-sign{
-                cursor: pointer;
-                width: 0.7em;
-                height: 0.7em;
-                background-image: url(../assets/svg/VectorExit.svg);
-                background-size: contain ;
-                background-repeat: no-repeat;
+    .score-item-bg {
+      max-width: 12rem;
+      max-height: 12rem;
+    }
+  }
 
-            }
+  .modal.modal-score {
+    .modal-content.score-content {
+      justify-content: space-evenly;
+      padding-top: 1em;
+      margin-top: 5vh;
+      height: 80vh;
+      width: 60vw;
+      .modal-picture {
+        width: 50vh;
+        height: 50vh;
+        .modal-image {
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
         }
+      }
+      .modal-exit {
+        padding-top: 0.2em;
+        .modal-exit-sign {
+          cursor: pointer;
+          width: 0.7em;
+          height: 0.7em;
+          background-image: url(../assets/svg/VectorExit.svg);
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+      }
     }
-}
+  }
 }
